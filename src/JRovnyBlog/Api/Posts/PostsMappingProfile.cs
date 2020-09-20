@@ -6,8 +6,9 @@ namespace JRovnyBlog.Api.Posts
     {
         public PostsMappingProfile()
         {
-            CreateMap<Models.Post, Data.Models.Post>();
-            CreateMap<Data.Models.Post, Models.Post>();
+            CreateMap<Models.PostSaveRequest, Data.Models.Post>();
+            CreateMap<Data.Models.Post, Models.PostSaveRequest>();
+            CreateMap<Data.Models.Post, Models.PostView>();
         }
     }
 }

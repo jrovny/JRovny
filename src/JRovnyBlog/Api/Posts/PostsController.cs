@@ -21,15 +21,15 @@ namespace JRovnyBlog.Api.Posts
         }
 
         [HttpGet()]
-        public async Task<IEnumerable<Models.Post>> GetAllAsync()
+        public async Task<IEnumerable<Models.PostView>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<Models.Post>>(await _context.Posts.AsNoTracking().ToListAsync());
+            return _mapper.Map<IEnumerable<Models.PostView>>(await _context.Posts.AsNoTracking().ToListAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var post = _mapper.Map<Models.Post>(
+            var post = _mapper.Map<Models.PostView>(
                 await _context.Posts
                     .AsNoTracking()
                     .Where(p => p.PostId == id)
@@ -42,18 +42,20 @@ namespace JRovnyBlog.Api.Posts
         }
 
         [HttpPost()]
-        public async Task<IActionResult> CreateAsync([FromBody] Models.Post post)
+        public async Task<IActionResult> CreateAsync([FromBody] Models.PostSaveRequest post)
         {
             var data = _mapper.Map<Data.Models.Post>(post);
 
             _context.Posts.Attach(data);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetByIdAsync), data);
+            post.PostId = data.PostId;
+
+            return CreatedAtAction(nameof(GetByIdAsync), post);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Models.Post post)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Models.PostSaveRequest post)
         {
             if (id != post.PostId)
                 return BadRequest(new ProblemDetails

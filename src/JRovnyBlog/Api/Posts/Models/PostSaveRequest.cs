@@ -1,16 +1,16 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace JRovnyBlog.Api.Posts.Models
 {
-    public class Post
+    public class PostSaveRequest
     {
         public int PostId { get; set; }
+        [Required]
         public string Title { get; set; }
-        public string Body { get; set; }
+        [Required]
+        public string Content { get; set; }
         public string Slug { get; set; }
-        public int ViewCount { get; set; }
-        public int LikesCount { get; set; }
-        public int CommentCount { get; set; }
         public bool Published { get; set; }
     }
 }
