@@ -23,12 +23,23 @@
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
-<mat-card *ngFor="let post of blogPosts" style="margin: 10px">
-  <mat-card-header>
-    <mat-card-title>{{ post.title }}</mat-card-title>
-    <mat-card-subtitle>{{
-      post.createdDate | date: "longDate"
-    }}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>{{ post.content }}</mat-card-content>
-</mat-card>
+<mat-sidenav-container class="container">
+  <mat-sidenav opened mode="side" style="width: 250px"></mat-sidenav>
+  <mat-sidenav
+    opened
+    mode="side"
+    position="end"
+    style="width: 250px"
+  ></mat-sidenav>
+  <mat-sidenav-content>
+    <mat-card *ngFor="let post of blogPosts" style="margin: 10px">
+      <mat-card-header>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>{{
+          post.createdDate | date: "longDate"
+        }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>{{ post.content }}</mat-card-content>
+    </mat-card></mat-sidenav-content
+  ></mat-sidenav-container
+>
