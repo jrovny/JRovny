@@ -12,8 +12,5 @@ namespace JRovnyBlog.Api.Posts.Models
         public int LikesCount { get; set; }
         public int CommentCount { get; set; }
         public bool Published { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-        public int UserId { get; set; }
     }
 }
