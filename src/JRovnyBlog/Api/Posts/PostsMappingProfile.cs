@@ -9,6 +9,7 @@ namespace JRovnyBlog.Api.Posts
             CreateMap<Models.PostSaveRequest, Data.Models.Post>();
             CreateMap<Data.Models.Post, Models.PostSaveRequest>();
             CreateMap<Data.Models.Post, Models.PostView>();
+            CreateMap<Data.Models.Post, Models.PostSummary>();
         }
     }
 }

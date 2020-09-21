@@ -21,9 +21,9 @@ namespace JRovnyBlog.Api.Posts
         }
 
         [HttpGet()]
-        public async Task<IEnumerable<Models.PostView>> GetAllAsync()
+        public async Task<IEnumerable<Models.PostSummary>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<Models.PostView>>(await _context.Posts.AsNoTracking().ToListAsync());
+            return _mapper.Map<IEnumerable<Models.PostSummary>>(await _context.Posts.AsNoTracking().ToListAsync());
         }
 
         [HttpGet("{id}")]

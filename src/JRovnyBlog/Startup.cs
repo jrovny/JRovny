@@ -26,6 +26,11 @@ namespace JRovnyBlog
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("https://localhost:5001").AllowAnyMethod().AllowAnyHeader());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,6 +53,7 @@ namespace JRovnyBlog
             }
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

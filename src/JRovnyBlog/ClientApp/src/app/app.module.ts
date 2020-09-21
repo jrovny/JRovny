@@ -5,6 +5,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { HttpClientModule } from "@angular/common/http";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -19,6 +20,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,

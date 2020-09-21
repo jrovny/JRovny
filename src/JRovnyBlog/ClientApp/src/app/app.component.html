@@ -32,7 +32,7 @@
     style="width: 250px"
   ></mat-sidenav>
   <mat-sidenav-content>
-    <mat-card *ngFor="let post of blogPosts" style="margin: 10px">
+    <mat-card *ngFor="let post of blogPosts$ | async" style="margin: 10px">
       <mat-card-header>
         <mat-card-title>{{ post.title }}</mat-card-title>
         <mat-card-subtitle>{{
