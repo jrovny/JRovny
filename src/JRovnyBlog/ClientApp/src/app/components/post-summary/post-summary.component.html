@@ -1,0 +1,13 @@
+<mat-card style="margin: 10px">
+  <mat-card-header>
+    <mat-card-title
+      ><a href="#" style="text-decoration: none; color: black">{{
+        post.title
+      }}</a></mat-card-title
+    >
+    <mat-card-subtitle>{{
+      post.createdDate | date: "longDate"
+    }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>{{ post.content }}</mat-card-content>
+</mat-card>

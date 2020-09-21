@@ -12,9 +12,10 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { PostSummaryComponent } from './components/post-summary/post-summary.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PostSummaryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
