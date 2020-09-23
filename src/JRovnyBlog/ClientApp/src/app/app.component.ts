@@ -9,10 +9,10 @@ import { PostSummary } from "./models/post-summary";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  title = "JRovny Blog";
+  title = "JRovny";
   blogPosts$: Observable<PostSummary[]>;
 
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
     this.blogPosts$ = this.appService.getBlogPostSummaries();
