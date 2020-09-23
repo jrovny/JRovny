@@ -85,5 +85,23 @@ namespace JRovnyBlog.Api.Posts
 
             return Ok(new Models.PostLikesResponse { Likes = post.Likes });
         }
+
+        [HttpPost("{id}/unlike")]
+        public async Task<IActionResult> UnlikeAsync(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
+                return NotFound();
+
+            post.Likes -= 1;
+
+            if (post.Likes < 0)
+                post.Likes = 0;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new Models.PostLikesResponse { Likes = post.Likes });
+        }
     }
 }
