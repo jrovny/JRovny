@@ -46,7 +46,7 @@ namespace JRovnyBlog.Api.Posts
         {
             var data = _mapper.Map<Data.Models.Post>(post);
 
-            _context.Posts.Attach(data);
+            _context.Posts.Add(data);
             await _context.SaveChangesAsync();
 
             post.PostId = data.PostId;
@@ -69,6 +69,21 @@ namespace JRovnyBlog.Api.Posts
             await _context.SaveChangesAsync();
 
             return Ok(post);
+        }
+
+        [HttpPost("{id}/like")]
+        public async Task<IActionResult> LikeAsync(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
+                return NotFound();
+
+            post.Likes += 1;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new Models.PostLikesResponse { Likes = post.Likes });
         }
     }
 }
