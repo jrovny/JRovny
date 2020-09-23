@@ -1,13 +1,23 @@
-<mat-card style="margin: 10px">
+<mat-card style="margin: 20px 10px">
   <mat-card-header>
-    <mat-card-title
-      ><a href="#" style="text-decoration: none; color: black">{{
+    <mat-card-title><a href="https://localhost:5001/{{post.postId}}" style="text-decoration: none; color: black">{{
         post.title
-      }}</a></mat-card-title
-    >
+      }}</a></mat-card-title>
     <mat-card-subtitle>{{
       post.createdDate | date: "longDate"
     }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>{{ post.content }}</mat-card-content>
+  <mat-card-footer style="padding-left: 15px; padding-bottom: 5px;">
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div fxLayout="row">
+        <mat-icon color="primary" style="margin-right: 3px;">thumb_up_alt</mat-icon>
+        <div class="mat-body">{{post.likes}}</div>
+      </div>
+      <div fxLayout="row">
+        <mat-icon color="primary" style="margin-right: 3px;">chat_bubble</mat-icon>
+        <div class="mat-body">{{post.comments}}</div>
+      </div>
+    </div>
+  </mat-card-footer>
 </mat-card>
