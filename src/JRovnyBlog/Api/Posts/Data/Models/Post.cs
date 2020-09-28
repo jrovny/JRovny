@@ -19,12 +19,12 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public string Slug { get; set; }
         [Column("image")]
         public string Image { get; set; }
-        [Column("likes")]
-        public int Likes { get; set; }
-        [Column("views")]
-        public int Views { get; set; }
-        [Column("comments")]
-        public int Comments { get; set; }
+        [Column("view_count")]
+        public int ViewCount { get; set; }
+        [Column("comment_count")]
+        public int CommentCount { get; set; }
+        [Column("likes_count")]
+        public int LikesCount { get; set; }
         [Column("published")]
         public bool Published { get; set; }
         [Column("created_date")]

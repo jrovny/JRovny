@@ -3,7 +3,7 @@ export interface PostSummary {
   title: string;
   content: string;
   image: string;
-  likes: number;
-  comments: number;
+  likesCount: number;
+  commentCount: number;
   createdDate: Date;
 }

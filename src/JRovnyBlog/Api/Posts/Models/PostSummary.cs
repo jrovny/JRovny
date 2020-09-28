@@ -8,8 +8,8 @@ namespace JRovnyBlog.Api.Posts.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public string Image { get; set; }
-        public int Comments { get; set; }
-        public int Likes { get; set; }
+        public int CommentCount { get; set; }
+        public int LikesCount { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

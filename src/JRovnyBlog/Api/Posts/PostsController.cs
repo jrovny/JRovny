@@ -79,11 +79,11 @@ namespace JRovnyBlog.Api.Posts
             if (post == null)
                 return NotFound();
 
-            post.Likes += 1;
+            post.LikesCount += 1;
 
             await _context.SaveChangesAsync();
 
-            return Ok(new Models.PostLikesResponse { Likes = post.Likes });
+            return Ok(new Models.PostLikesResponse { Likes = post.LikesCount });
         }
 
         [HttpPost("{id}/unlike")]
@@ -94,14 +94,14 @@ namespace JRovnyBlog.Api.Posts
             if (post == null)
                 return NotFound();
 
-            post.Likes -= 1;
+            post.LikesCount -= 1;
 
-            if (post.Likes < 0)
-                post.Likes = 0;
+            if (post.LikesCount < 0)
+                post.LikesCount = 0;
 
             await _context.SaveChangesAsync();
 
-            return Ok(new Models.PostLikesResponse { Likes = post.Likes });
+            return Ok(new Models.PostLikesResponse { Likes = post.LikesCount });
         }
     }
 }
