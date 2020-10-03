@@ -71,37 +71,37 @@ namespace JRovnyBlog.Api.Posts
             return Ok(post);
         }
 
-        [HttpPost("{id}/like")]
-        public async Task<IActionResult> LikeAsync(int id)
+        [HttpPost("{id}/upvote")]
+        public async Task<IActionResult> UpvoteAsync(int id)
         {
             var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
                 return NotFound();
 
-            post.LikesCount += 1;
+            post.UpvoteCount += 1;
 
             await _context.SaveChangesAsync();
 
-            return Ok(new Models.PostLikesResponse { Likes = post.LikesCount });
+            return Ok(new Models.PostUpvoteResponse { UpvoteCount = post.UpvoteCount });
         }
 
-        [HttpPost("{id}/unlike")]
-        public async Task<IActionResult> UnlikeAsync(int id)
+        [HttpPost("{id}/downvote")]
+        public async Task<IActionResult> DownvoteAsync(int id)
         {
             var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
                 return NotFound();
 
-            post.LikesCount -= 1;
+            post.UpvoteCount -= 1;
 
-            if (post.LikesCount < 0)
-                post.LikesCount = 0;
+            if (post.UpvoteCount < 0)
+                post.UpvoteCount = 0;
 
             await _context.SaveChangesAsync();
 
-            return Ok(new Models.PostLikesResponse { Likes = post.LikesCount });
+            return Ok(new Models.PostUpvoteResponse { UpvoteCount = post.UpvoteCount });
         }
     }
 }

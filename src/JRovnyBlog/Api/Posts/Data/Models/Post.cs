@@ -23,8 +23,10 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public int ViewCount { get; set; }
         [Column("comment_count")]
         public int CommentCount { get; set; }
-        [Column("likes_count")]
-        public int LikesCount { get; set; }
+        [Column("upvote_count")]
+        public int UpvoteCount { get; set; }
+        [Column("downvote_count")]
+        public int DownvoteCount { get; set; }
         [Column("published")]
         public bool Published { get; set; }
         [Column("created_date")]
