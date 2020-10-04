@@ -1,4 +1,5 @@
 using AutoMapper;
+using JRovnyBlog.Api.Posts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,7 @@ namespace JRovnyBlog
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddDbContext<ApplicationDbContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IConnectionService, ConnectionService>();
