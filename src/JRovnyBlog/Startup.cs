@@ -23,6 +23,7 @@ namespace JRovnyBlog
             services.AddDbContext<ApplicationDbContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IConnectionService, ConnectionService>();
+            services.AddTransient<IPostsService, PostsService>();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
