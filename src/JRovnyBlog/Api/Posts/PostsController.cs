@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,10 +14,15 @@ namespace JRovnyBlog.Api.Posts
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IPostsService _postsService;
 
-        public PostsController(ApplicationDbContext context, IMapper mapper)
+        public PostsController(
+            ApplicationDbContext context, 
+            IMapper mapper,
+            IPostsService postsService)
         {
             _mapper = mapper;
+            _postsService = postsService;
             _context = context;
         }
 
@@ -80,11 +86,26 @@ namespace JRovnyBlog.Api.Posts
                     Detail = "The ID in the route does not match the ID in the model."
                 });
 
-            var data = _mapper.Map<Data.Models.Post>(post);
-            _context.Update(data);
-            await _context.SaveChangesAsync();
+            return Ok(await _postsService.UpdateAsync(_mapper.Map<Data.Models.Post>(post)));
+        }
 
-            return Ok(post);
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchAsync(
+            int id, 
+            [FromBody]JsonPatchDocument<Models.PostSaveRequest> patch)
+        {
+            var post = _mapper.Map<Models.PostSaveRequest>(
+                await _context.Posts
+                    .AsNoTracking()
+                    .Where(p => p.PostId == id)
+                    .FirstOrDefaultAsync());
+
+            if (patch == null)
+                return NotFound();
+
+            patch.ApplyTo(post);
+
+            return Ok(await _postsService.UpdateAsync(_mapper.Map<Data.Models.Post>(post)));
         }
 
         [HttpPost("{id}/upvote")]
