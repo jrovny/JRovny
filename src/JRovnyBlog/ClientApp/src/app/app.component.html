@@ -1,15 +1,23 @@
 <mat-toolbar class="mat-elevation-z3 example-header" style="z-index: 2;">
-  <button mat-button style="font-size: 25px;">{{ title }}</button>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" aria-label="share">
-    <mat-icon>share</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="notifications">
+  <div fxLayout="row" fxLayoutAlign="space-between" style="width: 100%;">
+    <div>
+      <button mat-button style="font-size: 25px;">{{ title }}</button>
+      <button mat-icon-button class="example-icon" aria-label="share">
+        <mat-icon>share</mat-icon>
+      </button>
+    </div>
+    <div fxLayoutGap="10px">
+      <button mat-button color="primary">Sign In</button>
+      <button mat-raised-button color="primary">Sign Up</button>
+    </div>
+  </div>
+  <!-- <span class="example-spacer"></span> -->
+  <!-- <button mat-icon-button class="example-icon" aria-label="notifications">
     <mat-icon>notifications</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="account">
+  </button> -->
+  <!-- <button mat-icon-button class="example-icon" aria-label="account">
     <mat-icon>account_circle</mat-icon>
-  </button>
+  </button> -->
 </mat-toolbar>
 <mat-sidenav-container class="container">
   <mat-sidenav [opened]="leftSidenavOpened" mode="side" style="width: 300px"></mat-sidenav>
