@@ -42,6 +42,21 @@ namespace JRovnyBlog.Api.Posts
             return Ok(post);
         }
 
+        [HttpGet("slug/{slug}")]
+        public async Task<IActionResult> GetBySlugAsync(string slug)
+        {
+            var post = _mapper.Map<Models.PostView>(
+                await _context.Posts
+                    .AsNoTracking()
+                    .Where(p => p.Slug == slug)
+                    .FirstOrDefaultAsync());
+
+            if (post == null)
+                return NotFound();
+
+            return Ok(post);
+        }
+
         [HttpPost()]
         public async Task<IActionResult> CreateAsync([FromBody] Models.PostSaveRequest post)
         {
