@@ -94,6 +94,13 @@ namespace JRovnyBlog.Api.Posts
             int id, 
             [FromBody]JsonPatchDocument<Models.PostSaveRequest> patch)
         {
+            if (patch == null)
+                return BadRequest(new ProblemDetails
+                {
+                    Title = "Invalid Request",
+                    Detail = "No content found in body of request."
+                });
+
             var post = _mapper.Map<Models.PostSaveRequest>(
                 await _context.Posts
                     .AsNoTracking()
@@ -103,9 +110,10 @@ namespace JRovnyBlog.Api.Posts
             if (patch == null)
                 return NotFound();
 
-            patch.ApplyTo(post);
+            patch.ApplyTo(post, ModelState);
 
-            return Ok(await _postsService.UpdateAsync(_mapper.Map<Data.Models.Post>(post)));
+            return Ok(_mapper.Map<Models.PostSaveRequest>(
+                await _postsService.UpdateAsync(_mapper.Map<Data.Models.Post>(post))));
         }
 
         [HttpPost("{id}/upvote")]
