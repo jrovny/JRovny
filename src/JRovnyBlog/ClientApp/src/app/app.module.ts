@@ -12,6 +12,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { PostSummaryComponent } from './components/post-summary/post-summary.component';
@@ -29,6 +30,7 @@ import { PostSummaryComponent } from './components/post-summary/post-summary.com
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
   ],
