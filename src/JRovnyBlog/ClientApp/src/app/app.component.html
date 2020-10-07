@@ -18,7 +18,16 @@
     <mat-icon>account_circle</mat-icon>
   </button> -->
 </mat-toolbar>
-<mat-sidenav-container class="container">
+<div fxLayout="row" class="container">
+  <div style="width: 300px;" *ngIf="leftSidenavOpened"></div>
+  <div fxFlex>
+    <div *ngFor="let post of blogPosts$ | async">
+      <app-post-summary [post]="post"></app-post-summary>
+    </div>
+  </div>
+  <div style="width: 300px;" *ngIf="rightSidenavOpened"></div>
+</div>
+<!-- <mat-sidenav-container class="container">
   <mat-sidenav [opened]="leftSidenavOpened" mode="side" style="width: 300px"></mat-sidenav>
   <mat-sidenav [opened]="rightSidenavOpened" mode="side" position="end" style="width: 300px"></mat-sidenav>
   <mat-sidenav-content>
@@ -26,4 +35,4 @@
       <app-post-summary [post]="post"></app-post-summary>
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
