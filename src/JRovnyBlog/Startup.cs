@@ -26,7 +26,7 @@ namespace JRovnyBlog
             services.AddTransient<IPostsService, PostsService>();
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "dist";
             });
             services.AddCors(options =>
             {
