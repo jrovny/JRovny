@@ -17,21 +17,33 @@
   right: 0;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
+.loading-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
+// ::-webkit-scrollbar {
+//   width: 5px;
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: #f1f1f1; 
+// }
  
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: #888; 
+// }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: #555; 
+// }
