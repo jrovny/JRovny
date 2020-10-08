@@ -7,7 +7,7 @@ FROM node:10.15-alpine as client
 WORKDIR /app
 COPY ClientApp/package*.json ./
 RUN npm install
-RUN npm install -g @angular/cli@7.1
+RUN npm install -g @angular/cli@9.0.0
 COPY ClientApp ./
 RUN npm run-script publish
 
