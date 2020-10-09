@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PostDetail } from 'src/app/models/post-detail';
 import { AppService } from 'src/app/services/app.service';
@@ -9,14 +10,14 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
-
-  constructor(private appService: AppService) { }
-
+  slug: any;
   post$: Observable<PostDetail>;
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private appService: AppService) { }
 
-    this.post$ = this.appService.getBlogPostBySlug('test');
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(slug => this.slug = slug);
+    this.post$ = this.appService.getBlogPostBySlug(this.slug);
   }
 
 }
