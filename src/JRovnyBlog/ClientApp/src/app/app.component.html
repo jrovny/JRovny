@@ -1,7 +1,7 @@
 <mat-toolbar class="mat-elevation-z3 example-header" style="z-index: 2;">
   <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
     <div fxLayout="row">
-      <button mat-button style="font-size: 25px;" color="primary">{{ title }}</button>
+      <a mat-button style="font-size: 25px;" color="primary" routerLink="/">{{ title }}</a>
       <div *ngIf="mdScreen()">
         <button mat-button>About</button>
         <button mat-button>Contact</button>
