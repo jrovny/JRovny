@@ -10,17 +10,15 @@ import { PostSummary } from "./models/post-summary";
 })
 export class AppComponent implements OnInit {
   title = "JRovny";
-  blogPosts$: Observable<PostSummary[]>;
-
   rightSidenavOpened = true;
   leftSidenavOpened = true;
   innerWidth: number;
 
-  constructor(private appService: AppService) { }
+  constructor() { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.blogPosts$ = this.appService.getBlogPostSummaries();
+
   }
 
   @HostListener('window:resize', ['$event'])

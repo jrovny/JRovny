@@ -1,1 +1,10 @@
-<p>post-list works!</p>
+<div *ngIf="blogPosts$ | async as posts; else loading">
+    <div *ngFor="let post of posts">
+        <app-post-summary [post]="post"></app-post-summary>
+    </div>
+</div>
+<ng-template #loading>
+    <div class="loading-indicator">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

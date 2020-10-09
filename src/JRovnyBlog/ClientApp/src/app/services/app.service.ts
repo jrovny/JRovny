@@ -17,6 +17,6 @@ export class AppService {
   }
 
   getBlogPostBySlug(slug: string) {
-    return this.http.get<PostDetail>(`${this.url}/posts/slug${slug}`)
+    return this.http.get<PostDetail>(`${this.url}/posts/slug/${slug}`)
   }
 }

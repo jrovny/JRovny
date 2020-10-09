@@ -28,11 +28,7 @@
 <div fxLayout="row" class="container">
   <div style="width: 300px;" *ngIf="lgScreen()"></div>
   <div fxFlex>
-    <div *ngIf="blogPosts$ | async as posts; else loading">
-      <div *ngFor="let post of posts">
-        <app-post-summary [post]="post"></app-post-summary>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </div>
   <div style="width: 300px;" *ngIf="mdScreen()"></div>
 </div>
