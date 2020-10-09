@@ -18,9 +18,10 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { PostSummaryComponent } from './components/post-summary/post-summary.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { PostListComponent } from './components/post-list/post-list.component';
 
 @NgModule({
-  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent],
+  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
