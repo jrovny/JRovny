@@ -19,9 +19,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { PostSummaryComponent } from './components/post-summary/post-summary.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent],
+  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
