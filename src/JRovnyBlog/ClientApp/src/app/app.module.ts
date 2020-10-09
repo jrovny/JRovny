@@ -17,9 +17,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { PostSummaryComponent } from './components/post-summary/post-summary.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, PostSummaryComponent],
+  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
