@@ -16,7 +16,7 @@ export class PostDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private appService: AppService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(slug => this.slug = slug);
+    this.route.params.subscribe(slug => { this.slug = slug.slug; console.log(slug) });
     this.post$ = this.appService.getBlogPostBySlug(this.slug);
   }
 
