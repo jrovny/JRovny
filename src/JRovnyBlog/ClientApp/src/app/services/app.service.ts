@@ -8,15 +8,15 @@ import { PostDetail } from '../models/post-detail';
   providedIn: "root",
 })
 export class AppService {
-  url = environment.baseApiUrl;
+  url = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
   getBlogPostSummaries() {
-    return this.http.get<PostSummary[]>(`${this.url}/posts`);
+    return this.http.get<PostSummary[]>(`${this.url}/api/posts`);
   }
 
   getBlogPostBySlug(slug: string) {
-    return this.http.get<PostDetail>(`${this.url}/posts/slug/${slug}`)
+    return this.http.get<PostDetail>(`${this.url}/api/posts/slug/${slug}`)
   }
 }

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseApiUrl: 'https://blog.jrovny.com/api'
+  baseUrl: 'https://blog.jrovny.com'
 };
