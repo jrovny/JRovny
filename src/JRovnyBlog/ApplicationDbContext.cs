@@ -1,4 +1,5 @@
-﻿using JRovnyBlog.Api.Posts.Data.Models;
+﻿using JRovnyBlog.Api.Images.Data.Models;
+using JRovnyBlog.Api.Posts.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -11,6 +12,7 @@ namespace JRovnyBlog
         private readonly IConnectionService _connectionService;
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public ApplicationDbContext(IConnectionService connectionService)
         {

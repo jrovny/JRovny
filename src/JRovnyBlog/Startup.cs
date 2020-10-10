@@ -1,4 +1,5 @@
 using AutoMapper;
+using JRovnyBlog.Api.Images;
 using JRovnyBlog.Api.Posts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,7 @@ namespace JRovnyBlog
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IConnectionService, ConnectionService>();
             services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IImagesService, ImagesService>();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "dist";
