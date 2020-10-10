@@ -6,6 +6,7 @@ WORKDIR /app
 FROM node:10.15-alpine as client
 WORKDIR /app
 COPY ClientApp/package*.json ./
+RUN npm config set unsafe-perm true
 RUN npm install
 RUN npm install -g @angular/cli@9.0.0
 COPY ClientApp ./
