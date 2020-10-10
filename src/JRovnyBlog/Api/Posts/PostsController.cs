@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace JRovnyBlog.Api.Posts
@@ -12,35 +10,29 @@ namespace JRovnyBlog.Api.Posts
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IPostsService _postsService;
 
         public PostsController(
-            ApplicationDbContext context, 
             IMapper mapper,
             IPostsService postsService)
         {
             _mapper = mapper;
             _postsService = postsService;
-            _context = context;
         }
 
         [HttpGet()]
         public async Task<IEnumerable<Models.PostSummary>> GetAllAsync()
         {
             return _mapper.Map<IEnumerable<Models.PostSummary>>(
-                await _context.Posts.AsNoTracking().OrderByDescending(p => p.PostId).ToListAsync());
+                await _postsService.GetAllAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var post = _mapper.Map<Models.PostView>(
-                await _context.Posts
-                    .AsNoTracking()
-                    .Where(p => p.PostId == id)
-                    .FirstOrDefaultAsync());
+                await _postsService.GetByIdAsync(id));
 
             if (post == null)
                 return NotFound();
@@ -52,10 +44,7 @@ namespace JRovnyBlog.Api.Posts
         public async Task<IActionResult> GetBySlugAsync(string slug)
         {
             var post = _mapper.Map<Models.PostView>(
-                await _context.Posts
-                    .AsNoTracking()
-                    .Where(p => p.Slug == slug)
-                    .FirstOrDefaultAsync());
+                await _postsService.GetBySlugAsync(slug));
 
             if (post == null)
                 return NotFound();
@@ -68,12 +57,10 @@ namespace JRovnyBlog.Api.Posts
         {
             var data = _mapper.Map<Data.Models.Post>(post);
 
-            _context.Posts.Add(data);
-            await _context.SaveChangesAsync();
-
+            await _postsService.CreateAsync(data);
             post.PostId = data.PostId;
 
-            return CreatedAtAction(nameof(GetByIdAsync), post);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = post.PostId }, post);
         }
 
         [HttpPut("{id}")]
@@ -102,10 +89,7 @@ namespace JRovnyBlog.Api.Posts
                 });
 
             var post = _mapper.Map<Models.PostSaveRequest>(
-                await _context.Posts
-                    .AsNoTracking()
-                    .Where(p => p.PostId == id)
-                    .FirstOrDefaultAsync());
+                await _postsService.GetByIdAsync(id));
 
             if (patch == null)
                 return NotFound();
@@ -119,34 +103,23 @@ namespace JRovnyBlog.Api.Posts
         [HttpPost("{id}/upvote")]
         public async Task<IActionResult> UpvoteAsync(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _postsService.GetByIdAsync(id);
 
             if (post == null)
                 return NotFound();
 
-            post.UpvoteCount += 1;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new Models.PostUpvoteResponse { UpvoteCount = post.UpvoteCount });
+            return Ok(_mapper.Map<Models.PostUpvoteResponse>(await _postsService.UpvoteAsync(id)));
         }
 
         [HttpPost("{id}/downvote")]
         public async Task<IActionResult> DownvoteAsync(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _postsService.GetByIdAsync(id);
 
             if (post == null)
                 return NotFound();
 
-            post.UpvoteCount -= 1;
-
-            if (post.UpvoteCount < 0)
-                post.UpvoteCount = 0;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new Models.PostUpvoteResponse { UpvoteCount = post.UpvoteCount });
+            return Ok(_mapper.Map<Models.PostUpvoteResponse>(await _postsService.DownvoteAsync(id)));
         }
     }
 }
