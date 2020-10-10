@@ -28,7 +28,7 @@ namespace JRovnyBlog
             services.AddTransient<IImagesService, ImagesService>();
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "dist/blog";
+                configuration.RootPath = "dist";
             });
             services.AddCors(options =>
             {
