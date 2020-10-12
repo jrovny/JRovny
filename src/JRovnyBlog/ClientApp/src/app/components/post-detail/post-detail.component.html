@@ -1,5 +1,6 @@
 <div *ngIf="post$ | async as post; else loading" fxFlex>
     <mat-card style="margin: 10px 10px">
+        <img mat-card-image [src]="post.image" alt="Blog post image">
         <mat-card-title>
             {{post.title}}
         </mat-card-title>
