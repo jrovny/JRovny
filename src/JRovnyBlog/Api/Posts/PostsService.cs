@@ -18,7 +18,10 @@ namespace JRovnyBlog.Api.Posts
 
         public async Task<IEnumerable<Data.Models.Post>> GetAllAsync()
         {
-            return await _context.Posts.AsNoTracking().OrderByDescending(p => p.PostId).ToListAsync();
+            return await _context.Posts
+                .AsNoTracking()
+                .Where(p => p.Published == true)
+                .OrderByDescending(p => p.PostId).ToListAsync();
         }
 
         public async Task<Data.Models.Post> GetByIdAsync(int postId)
