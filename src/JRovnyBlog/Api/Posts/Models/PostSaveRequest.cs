@@ -12,5 +12,6 @@ namespace JRovnyBlog.Api.Posts.Models
         public string Content { get; set; }
         public string Slug { get; set; }
         public bool Published { get; set; }
+        public string Image { get; set; }
     }
 }
