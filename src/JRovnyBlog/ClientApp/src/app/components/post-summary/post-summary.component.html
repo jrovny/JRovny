@@ -6,10 +6,9 @@
     <mat-card-subtitle>{{
       post.createdDate | date: "longDate"
     }}</mat-card-subtitle>
-    <img mat-card-md-image [style.width]="innerWidth > 768 ? '200px' : '100px'"
-      [style.margin]="innerWidth > 768 ? '10px' : '5px'" [src]="post.image" alt="Blog post image">
+    <img [ngClass]="(innerWidth >= 768) ? 'mat-card-md-image' : 'mat-card-sm-image'" [src]="post.image"
+      alt="Blog post image">
   </mat-card-title-group>
-  <!-- <mat-card-content>{{ post.content }}</mat-card-content> -->
   <mat-card-footer style="padding-left: 15px; padding-bottom: 5px;">
     <div fxLayout="row" fxLayoutGap="10px">
       <div fxLayout="row">
