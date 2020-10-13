@@ -22,14 +22,6 @@ export class PostSummaryComponent implements OnInit {
     this.innerWidth = event.target.innerWidth;
   }
 
-  getImageAspectRatioPercentage() {
-    if (this.post) {
-      return this.post.height / this.post.width;
-    } else {
-      return 0;
-    }
-  }
-
   screenWidth(): number {
     return 1000;
   }
