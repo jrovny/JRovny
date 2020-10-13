@@ -1,8 +1,4 @@
 import { Component, HostListener, OnInit } from "@angular/core";
-import { AppService } from "./services/app.service";
-import { Observable } from "rxjs";
-import { PostSummary } from "./models/post-summary";
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: "app-root",
