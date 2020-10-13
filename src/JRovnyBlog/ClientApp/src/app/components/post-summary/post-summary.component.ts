@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, HostListener } from "@angular/core";
 import { PostSummary } from "src/app/models/post-summary";
 
 @Component({
@@ -8,20 +8,29 @@ import { PostSummary } from "src/app/models/post-summary";
 })
 export class PostSummaryComponent implements OnInit {
   @Input() post: PostSummary;
-  image = new Image();
+  innerWidth: number;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.image.src = this.post.image;
+    this.innerWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = event.target.innerWidth;
   }
 
   getImageAspectRatioPercentage() {
-    if (this.image) {
-      return this.image.height / this.image.width
+    if (this.post) {
+      return this.post.height / this.post.width;
     } else {
       return 0;
     }
+  }
+
+  screenWidth(): number {
+    return 1000;
   }
 }

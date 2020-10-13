@@ -1,15 +1,14 @@
-<mat-card style="margin: 10px 10px; max-width: 600px;">
-  <div [style.padding-bottom.percent]=getImageAspectRatioPercentage()>
-    <img mat-card-image [src]="post.image" alt="Blog post image">
-  </div>
-  <mat-card-header>
+<mat-card style="margin: 10px 10px;">
+  <mat-card-title-group>
     <mat-card-title><a [routerLink]="['/posts/', post.slug]" style="text-decoration: none; color: black">{{
         post.title
       }}</a></mat-card-title>
     <mat-card-subtitle>{{
       post.createdDate | date: "longDate"
     }}</mat-card-subtitle>
-  </mat-card-header>
+    <img mat-card-md-image [style.width]="innerWidth > 768 ? '200px' : '100px'"
+      [style.margin]="innerWidth > 768 ? '10px' : '5px'" [src]="post.image" alt="Blog post image">
+  </mat-card-title-group>
   <!-- <mat-card-content>{{ post.content }}</mat-card-content> -->
   <mat-card-footer style="padding-left: 15px; padding-bottom: 5px;">
     <div fxLayout="row" fxLayoutGap="10px">
