@@ -8,8 +8,20 @@ import { PostSummary } from "src/app/models/post-summary";
 })
 export class PostSummaryComponent implements OnInit {
   @Input() post: PostSummary;
+  image = new Image();
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.image.src = this.post.image;
+  }
+
+  getImageAspectRatioPercentage() {
+    if (this.image) {
+      return this.image.height / this.image.width
+    } else {
+      return 0;
+    }
+  }
 }

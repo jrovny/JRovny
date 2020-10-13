@@ -1,5 +1,7 @@
-<mat-card style="margin: 10px 10px; width: 600px;">
-  <img mat-card-image [src]="post.image" alt="Blog post image">
+<mat-card style="margin: 10px 10px; max-width: 600px;">
+  <div [style.padding-bottom.percent]=getImageAspectRatioPercentage()>
+    <img mat-card-image [src]="post.image" alt="Blog post image">
+  </div>
   <mat-card-header>
     <mat-card-title><a [routerLink]="['/posts/', post.slug]" style="text-decoration: none; color: black">{{
         post.title
