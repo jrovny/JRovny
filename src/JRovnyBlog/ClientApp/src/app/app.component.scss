@@ -3,7 +3,7 @@
 }
 .container {
   position: fixed;
-  top: 64px;
+  top: 60px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -15,23 +15,5 @@
   top: 0;
   left: 0;
   right: 0;
+  height: 60px;
 }
-
-// ::-webkit-scrollbar {
-//   width: 5px;
-// }
-
-// /* Track */
-// ::-webkit-scrollbar-track {
-//   background: #f1f1f1; 
-// }
- 
-// /* Handle */
-// ::-webkit-scrollbar-thumb {
-//   background: #888; 
-// }
-
-// /* Handle on hover */
-// ::-webkit-scrollbar-thumb:hover {
-//   background: #555; 
-// }
