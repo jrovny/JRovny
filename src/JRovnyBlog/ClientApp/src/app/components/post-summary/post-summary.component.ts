@@ -21,8 +21,4 @@ export class PostSummaryComponent implements OnInit {
   onResize(event) {
     this.innerWidth = event.target.innerWidth;
   }
-
-  screenWidth(): number {
-    return 1000;
-  }
 }
