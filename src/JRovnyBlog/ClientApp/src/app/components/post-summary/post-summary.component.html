@@ -1,21 +1,23 @@
-<mat-card style="margin: 10px 10px;">
+<mat-card style="margin: 10px 10px; cursor: pointer;" (click)="openBlogPost()">
   <mat-card-title-group>
-    <mat-card-title><a [routerLink]="['/posts/', post.slug]" style="text-decoration: none; color: black">{{
+    <!-- <mat-card-title><a [routerLink]="['/posts/', post.slug]">{{
         post.title
-      }}</a></mat-card-title>
+      }}</a></mat-card-title> -->
+    <mat-card-title>{{post.title}}</mat-card-title>
     <mat-card-subtitle>{{
       post.createdDate | date: "longDate"
-    }}</mat-card-subtitle>
+    }} &bull; Jordan</mat-card-subtitle>
     <img [ngClass]="(innerWidth >= 768) ? 'mat-card-md-image' : 'mat-card-sm-image'" [src]="post.image"
       alt="Blog post image">
   </mat-card-title-group>
-  <mat-card-footer style="padding-left: 15px; padding-bottom: 5px;">
+  <mat-card-footer style="padding-left: 15px; padding-bottom: 5px;"
+    *ngIf="post.upvoteCount > 0 || post.commentCount > 0">
     <div fxLayout="row" fxLayoutGap="10px">
-      <div fxLayout="row">
+      <div fxLayout="row" *ngIf="post.upvoteCount > 0">
         <mat-icon color="primary" style="margin-right: 3px;">thumb_up_alt</mat-icon>
         <div class="mat-body">{{post.upvoteCount}} likes</div>
       </div>
-      <div fxLayout="row">
+      <div fxLayout="row" *ngIf="post.commentCount > 0">
         <mat-icon color="primary" style="margin-right: 3px;">chat_bubble</mat-icon>
         <div class="mat-body">{{post.commentCount}} comments</div>
       </div>
