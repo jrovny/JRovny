@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace JRovnyBlog
 {
@@ -57,6 +58,7 @@ namespace JRovnyBlog
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
+            app.UseSerilogRequestLogging();
 
             app.UseEndpoints(endpoints =>
             {
