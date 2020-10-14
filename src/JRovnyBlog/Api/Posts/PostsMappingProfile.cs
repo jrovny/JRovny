@@ -11,6 +11,7 @@ namespace JRovnyBlog.Api.Posts
             CreateMap<Data.Models.Post, Models.PostView>();
             CreateMap<Data.Models.Post, Models.PostSummary>();
             CreateMap<Data.Models.PostUpvoteResponse, Models.PostUpvoteResponse>();
+            CreateMap<Data.Models.Comment, Models.CommentView>();
         }
     }
 }

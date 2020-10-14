@@ -13,6 +13,7 @@ namespace JRovnyBlog
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public ApplicationDbContext(IConnectionService connectionService)
         {
@@ -22,6 +23,12 @@ namespace JRovnyBlog
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             builder.UseNpgsql(_connectionService.GetDefaultConnectionString());
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Post>().HasMany(p => p.Comments).WithOne(c => c.Post);
+            builder.Entity<Comment>().HasQueryFilter(p => !p.Deleted);
         }
 
         public override Task<int> SaveChangesAsync(

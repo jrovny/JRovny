@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,5 +37,11 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public DateTime ModifiedDate { get; set; }
         [Column("user_id")]
         public int UserId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
+        public Post()
+        {
+            Comments = new Collection<Comment>();
+        }
     }
 }

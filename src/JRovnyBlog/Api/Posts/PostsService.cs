@@ -1,6 +1,5 @@
 ﻿using JRovnyBlog.Api.Posts.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +20,8 @@ namespace JRovnyBlog.Api.Posts
             return await _context.Posts
                 .AsNoTracking()
                 .Where(p => p.Published == true)
-                .OrderByDescending(p => p.PostId).ToListAsync();
+                .OrderByDescending(p => p.PostId)
+                .ToListAsync();
         }
 
         public async Task<Data.Models.Post> GetByIdAsync(int postId)
@@ -35,6 +35,7 @@ namespace JRovnyBlog.Api.Posts
         public async Task<Data.Models.Post> GetBySlugAsync(string slug)
         {
             return await _context.Posts
+                .Include(p => p.Comments)
                 .AsNoTracking()
                 .Where(p => p.Slug == slug)
                 .FirstOrDefaultAsync();
