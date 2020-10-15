@@ -9,7 +9,25 @@ namespace JRovnyBlog
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Building and running web host");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Fatal(ex, "Failed to start web host");
+                throw;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -19,10 +37,7 @@ namespace JRovnyBlog
                     logger.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
                     logger.Enrich.FromLogContext();
                     if (context.HostingEnvironment.IsDevelopment())
-                    {
                         logger.WriteTo.Console();
-                        logger.WriteTo.Debug();
-                    }
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
