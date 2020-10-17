@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -40,13 +38,13 @@ namespace JRovnyBlog
                     var isDevelopment = context.HostingEnvironment.IsDevelopment();
                     logger.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
                     logger.Enrich.FromLogContext();
-                    // if (context.HostingEnvironment.IsDevelopment())
+                    if (isDevelopment)
                         logger.WriteTo.Console();
-                    logger.WriteTo.File(new JsonFormatter(), isDevelopment ? @".\log\log-.txt" : @"./log/log-.txt",
+                    logger.WriteTo.File(new JsonFormatter(), 
+                        isDevelopment ? @".\log\log-.txt" : @"./log/log-.txt",
                         rollingInterval: RollingInterval.Day,
                         retainedFileCountLimit: null,
                         rollOnFileSizeLimit: true);
-                    Serilog.Debugging.SelfLog.Enable(Console.Error);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
