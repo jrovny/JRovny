@@ -1,11 +1,18 @@
+using System.Net;
 using AutoMapper;
 using JRovnyBlog.Api.Images;
 using JRovnyBlog.Api.Posts;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Npgsql.Logging;
 using Serilog;
 
@@ -39,7 +46,7 @@ namespace JRovnyBlog
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, false, false);
 
@@ -51,6 +58,10 @@ namespace JRovnyBlog
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
+                app.UseExceptionHandler(appError =>
+                {
+                    HandleGlobalException(env, appError, logger);
+                });
             }
 
             app.UseStaticFiles();
@@ -78,6 +89,42 @@ namespace JRovnyBlog
                 {
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
+            });
+        }
+
+        private static void HandleGlobalException(
+            IWebHostEnvironment env,
+            IApplicationBuilder appError,
+            ILogger<Startup> logger)
+        {
+            appError.Run(async context =>
+            {
+                var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
+                var exception = errorFeature.Error;
+
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = "application/json";
+
+                logger.LogError(exception.ToString());
+
+                var problemDetails = new ProblemDetails
+                {
+                    Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+                    Title = "An Error Occurred",
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Detail = env.IsDevelopment() ? exception.ToString() : "Error",
+                    Instance = context.Request.Path
+                };
+
+                var problemDetailsJson = JsonConvert.SerializeObject(
+                    problemDetails,
+                    new JsonSerializerSettings
+                    {
+                        ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                        Formatting = Formatting.Indented
+                    });
+
+                await context.Response.WriteAsync(problemDetailsJson).ConfigureAwait(false);
             });
         }
     }
