@@ -9,6 +9,7 @@ namespace JRovnyBlog.Api.Posts
         Task<IEnumerable<Data.Models.Post>> GetAllAsync();
         Task<Data.Models.Post> GetByIdAsync(int postId);
         Task<Data.Models.Post> GetBySlugAsync(string slug);
+        //Task<Data.Models.PostView> GetBySlugAsync(string slug);
         Task<Data.Models.Post> CreateAsync(Data.Models.Post post);
         Task<Post> UpdateAsync(Post post);
         Task<PostUpvoteResponse> UpvoteAsync(int id);

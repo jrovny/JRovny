@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JRovnyBlog.Api.Posts
 {
