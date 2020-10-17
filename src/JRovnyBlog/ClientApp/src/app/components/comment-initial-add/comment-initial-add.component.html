@@ -1,0 +1,15 @@
+<form fxLayout="column" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <textarea matInput placeholder="Comment" formControlName="content" required></textarea>
+    </mat-form-field>
+    <mat-form-field hintLabel="Email is never shared">
+        <input matInput placeholder="Email" formControlName="email" required type="email">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Website" formControlName="website">
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" fxFlexAlign="start" [disabled]=!form.valid>Publish</button>
+</form>

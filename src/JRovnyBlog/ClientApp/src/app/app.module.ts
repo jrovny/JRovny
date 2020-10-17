@@ -24,13 +24,16 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommentInitialAddComponent } from './components/comment-initial-add/comment-initial-add.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent, CommentInitialAddComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
     MatButtonModule,

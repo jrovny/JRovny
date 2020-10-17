@@ -44,20 +44,8 @@
                     <mat-card-title>
                         Leave a comment...
                     </mat-card-title>
-                    <mat-card-content fxLayout="column">
-                        <mat-form-field>
-                            <textarea matInput placeholder="Comment" required></textarea>
-                        </mat-form-field>
-                        <mat-form-field hintLabel="Email is never shared">
-                            <input matInput placeholder="Email" required>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput placeholder="Name" required>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput placeholder="Website">
-                        </mat-form-field>
-                        <button mat-raised-button color="primary" fxFlexAlign="start" disabled>Publish</button>
+                    <mat-card-content>
+                        <app-comment-initial-add></app-comment-initial-add>
                     </mat-card-content>
                 </mat-card>
             </div>
