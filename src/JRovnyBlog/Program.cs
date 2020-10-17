@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -43,6 +44,7 @@ namespace JRovnyBlog
                         rollingInterval: RollingInterval.Day,
                         retainedFileCountLimit: null,
                         rollOnFileSizeLimit: true);
+                    Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
