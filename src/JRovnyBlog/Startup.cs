@@ -48,15 +48,13 @@ namespace JRovnyBlog
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, false, false);
-
             if (env.IsDevelopment())
             {
+                NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, false, false);
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
                 app.UseHsts();
                 app.UseExceptionHandler(appError =>
                 {
