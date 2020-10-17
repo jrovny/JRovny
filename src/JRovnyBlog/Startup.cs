@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Npgsql.Logging;
 using Serilog;
 
 namespace JRovnyBlog
@@ -40,6 +41,8 @@ namespace JRovnyBlog
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, false, false);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
