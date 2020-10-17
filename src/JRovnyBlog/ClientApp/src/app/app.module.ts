@@ -9,6 +9,8 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
@@ -16,10 +18,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { PostSummaryComponent } from './components/post-summary/post-summary.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent],
@@ -31,6 +35,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -38,6 +44,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatTooltipModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
