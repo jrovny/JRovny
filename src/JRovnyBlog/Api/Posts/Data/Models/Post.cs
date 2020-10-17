@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using JRovnyBlog.Api.Tags.Data.Models;
 
 namespace JRovnyBlog.Api.Posts.Data.Models
 {
@@ -38,10 +39,14 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         [Column("user_id")]
         public int UserId { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        // public ICollection<Tags.Data.Models.Tag> Tags { get; set; }
+        public List<PostTag> PostTags { get; set; }
 
         public Post()
         {
             Comments = new Collection<Comment>();
+            // Tags = new Collection<Tags.Data.Models.Tag>();
+            PostTags = new List<PostTag>();
         }
     }
 }

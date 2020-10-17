@@ -44,7 +44,7 @@ namespace JRovnyBlog.Api.Posts
         public async Task<IActionResult> GetBySlugAsync(string slug)
         {
             var post = _mapper.Map<Models.PostView>(
-                await _postsService.GetBySlugAsync(slug));
+               await _postsService.GetBySlugAsync(slug));
 
             if (post == null)
                 return NotFound();
@@ -78,8 +78,8 @@ namespace JRovnyBlog.Api.Posts
 
         [HttpPatch("{id}")]
         public async Task<IActionResult> PatchAsync(
-            int id, 
-            [FromBody]JsonPatchDocument<Models.PostSaveRequest> patch)
+            int id,
+            [FromBody] JsonPatchDocument<Models.PostSaveRequest> patch)
         {
             if (patch == null)
                 return BadRequest(new ProblemDetails

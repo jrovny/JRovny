@@ -36,6 +36,8 @@ namespace JRovnyBlog.Api.Posts
         {
             return await _context.Posts
                 .Include(p => p.Comments)
+                .Include(p => p.PostTags)
+                    .ThenInclude(pt => pt.Tag)
                 .AsNoTracking()
                 .Where(p => p.Slug == slug)
                 .FirstOrDefaultAsync();

@@ -1,6 +1,9 @@
 ﻿using JRovnyBlog.Api.Images.Data.Models;
 using JRovnyBlog.Api.Posts.Data.Models;
+using JRovnyBlog.Api.Tags.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +17,8 @@ namespace JRovnyBlog
         public DbSet<Post> Posts { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        //public DbSet<PostTag> PostTags { get; set; }
 
         public ApplicationDbContext(IConnectionService connectionService)
         {
@@ -29,6 +34,18 @@ namespace JRovnyBlog
         {
             builder.Entity<Post>().HasMany(p => p.Comments).WithOne(c => c.Post);
             builder.Entity<Comment>().HasQueryFilter(p => !p.Deleted);
+            builder.Entity<Tag>().HasQueryFilter(t => !t.Deleted);
+            builder.Entity<PostTag>().HasQueryFilter(t => !t.Deleted);
+            builder.Entity<PostTag>()
+                .HasOne(pt => pt.Tag)
+                .WithMany(t => t.PostTags)
+                .HasForeignKey(pt => pt.TagId)
+                .IsRequired();
+            builder.Entity<PostTag>()
+                .HasOne(pt => pt.Post)
+                .WithMany(p => p.PostTags)
+                .HasForeignKey(pt => pt.PostId)
+                .IsRequired();
         }
 
         public override Task<int> SaveChangesAsync(

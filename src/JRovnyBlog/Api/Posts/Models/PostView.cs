@@ -19,10 +19,12 @@ namespace JRovnyBlog.Api.Posts.Models
         public DateTime ModifiedDate { get; set; }
         public int UserId { get; set; }
         public ICollection<CommentView> Comments { get; set; }
+        public ICollection<Tags.Models.Tag> Tags { get; set; }
 
         public PostView()
         {
             Comments = new Collection<CommentView>();
+            Tags = new Collection<Tags.Models.Tag>();
         }
     }
 }
