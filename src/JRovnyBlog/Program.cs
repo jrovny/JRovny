@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Serilog.Formatting.Json;
 
 namespace JRovnyBlog
 {
@@ -32,12 +33,16 @@ namespace JRovnyBlog
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog((context, logger) => 
+                .UseSerilog((context, logger) =>
                 {
                     logger.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
                     logger.Enrich.FromLogContext();
-                    //if (context.HostingEnvironment.IsDevelopment())
+                    if (context.HostingEnvironment.IsDevelopment())
                         logger.WriteTo.Console();
+                    logger.WriteTo.File(new JsonFormatter(), @".\log\log-.txt",
+                        rollingInterval: RollingInterval.Day,
+                        retainedFileCountLimit: null,
+                        rollOnFileSizeLimit: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
