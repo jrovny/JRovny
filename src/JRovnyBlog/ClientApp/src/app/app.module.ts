@@ -26,6 +26,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentInitialAddComponent } from './components/comment-initial-add/comment-initial-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent, CommentInitialAddComponent],
@@ -49,6 +50,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatToolbarModule,
     MatTooltipModule,
     FontAwesomeModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],
