@@ -38,7 +38,7 @@ namespace JRovnyBlog
                 {
                     logger.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
                     logger.Enrich.FromLogContext();
-                    if (context.HostingEnvironment.IsDevelopment())
+                    //if (context.HostingEnvironment.IsDevelopment())
                         logger.WriteTo.Console();
                     logger.WriteTo.File(new JsonFormatter(), @".\log\log-.txt",
                         rollingInterval: RollingInterval.Day,
