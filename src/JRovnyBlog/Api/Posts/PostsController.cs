@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JRovnyBlog.Api.Posts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -120,6 +121,22 @@ namespace JRovnyBlog.Api.Posts
                 return NotFound();
 
             return Ok(_mapper.Map<Models.PostUpvoteResponse>(await _postsService.DownvoteAsync(id)));
+        }
+
+        [HttpPost("{id}/comment-initial-anon")]
+        public async Task<IActionResult> CreateInitialCommentAnonymousAsync(
+            int id,
+            CommentInitialAnonymous initComment)
+        {
+            var comment = _mapper.Map<Data.Models.Comment>(initComment);
+            comment.PostId = id;
+            comment.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            comment.IsAnonymous = true;
+
+            await _postsService.CreateInitialCommentAsync(comment);
+            initComment.CommentId = comment.CommentId;
+
+            return Ok(initComment);
         }
     }
 }

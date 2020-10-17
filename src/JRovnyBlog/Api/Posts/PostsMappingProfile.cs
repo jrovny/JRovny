@@ -22,6 +22,10 @@ namespace JRovnyBlog.Api.Posts
             CreateMap<Data.Models.PostUpvoteResponse, Models.PostUpvoteResponse>();
             CreateMap<Data.Models.Comment, Models.CommentView>();
             CreateMap<Tags.Data.Models.Tag, Tags.Models.Tag>();
+            CreateMap<Models.CommentInitialAnonymous, Data.Models.Comment>()
+                .ForMember(c => c.UserEmail, opt => opt.MapFrom(c => c.Email))
+                .ForMember(c => c.UserName, opt => opt.MapFrom(c => c.Name))
+                .ForMember(c => c.UserUrl, opt => opt.MapFrom(c => c.Website));
         }
     }
 }
