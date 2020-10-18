@@ -129,10 +129,12 @@ namespace JRovnyBlog.Api.Posts
             int id,
             CommentInitialAnonymous initComment)
         {
+            var proxyIp = Request.Headers["X-Forwarded-For"].FirstOrDefault();
             var comment = _mapper.Map<Data.Models.Comment>(initComment);
             comment.PostId = id;
-            // comment.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-            comment.UserIp = Request.Headers["X-Forwarded-For"].FirstOrDefault().ToString();
+            comment.UserIp = proxyIp != null
+                ? proxyIp.ToString()
+                : Request.HttpContext.Connection.RemoteIpAddress.ToString();
             comment.IsAnonymous = true;
 
             await _postsService.CreateInitialCommentAsync(comment);
