@@ -35,6 +35,8 @@ namespace JRovnyBlog
             {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
             });
             services.AddDbContext<ApplicationDbContext>();
             services.AddAutoMapper(typeof(Startup));
@@ -61,7 +63,6 @@ namespace JRovnyBlog
             }
             else
             {
-                app.UseHsts();
                 app.UseExceptionHandler(appError =>
                 {
                     HandleGlobalException(env, appError, logger);
