@@ -3,6 +3,7 @@ using JRovnyBlog.Api.Posts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace JRovnyBlog.Api.Posts
@@ -130,7 +131,8 @@ namespace JRovnyBlog.Api.Posts
         {
             var comment = _mapper.Map<Data.Models.Comment>(initComment);
             comment.PostId = id;
-            comment.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            // comment.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            comment.UserIp = Request.Headers["X-Forwarded-For"].FirstOrDefault().ToString();
             comment.IsAnonymous = true;
 
             await _postsService.CreateInitialCommentAsync(comment);
