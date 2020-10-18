@@ -6,11 +6,14 @@ namespace JRovnyBlog.Api.Posts.Models
     {
         public int CommentId { get; set; }
         [Required]
+        [MaxLength(2000)]
         public string Content { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
         public string Name { get; set; }
         public string Website { get; set; }
+        [Required]
+        public bool RememberMe { get; set; }
     }
 }

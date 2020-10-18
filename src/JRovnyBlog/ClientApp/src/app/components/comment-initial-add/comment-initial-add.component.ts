@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { InitialComment } from 'src/app/models/initial-comment';
 import { CommentService } from 'src/app/services/comment.service';
 
@@ -8,14 +9,17 @@ import { CommentService } from 'src/app/services/comment.service';
   templateUrl: './comment-initial-add.component.html',
   styleUrls: ['./comment-initial-add.component.scss']
 })
-export class CommentInitialAddComponent implements OnInit {
+export class CommentInitialAddComponent implements OnInit, OnDestroy {
 
   form = this.fb.group({
     content: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     name: ['', Validators.required],
-    website: ['']
-  })
+    website: [''],
+    rememberMe: [false, Validators.required]
+  });
+  subscription$: Subscription;
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   constructor(private fb: FormBuilder, private commentService: CommentService) { }
 
@@ -28,8 +32,15 @@ export class CommentInitialAddComponent implements OnInit {
       content: model.content,
       email: model.email,
       name: model.name,
-      website: model.website
+      website: model.website,
+      rememberMe: model.rememberMe
     }
-    this.commentService.createInitialComment(11, comment).subscribe(comment => console.log('Saving comment', comment));
+    this.subscription$ = this.commentService.createInitialComment(11, comment).subscribe(() => {
+      this.formDirective.resetForm();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

@@ -3,5 +3,6 @@ export interface InitialComment {
     content: string,
     email: string,
     name: string,
-    website?: string
+    website?: string,
+    rememberMe: boolean
 }

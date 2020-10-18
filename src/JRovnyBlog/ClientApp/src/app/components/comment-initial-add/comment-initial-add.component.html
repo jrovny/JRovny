@@ -1,4 +1,4 @@
-<form fxLayout="column" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form fxLayout="column" [formGroup]="form" (ngSubmit)="onSubmit()" #formDirective="ngForm">
     <mat-form-field>
         <textarea matInput placeholder="Comment" formControlName="content" required></textarea>
     </mat-form-field>
@@ -11,5 +11,8 @@
     <mat-form-field>
         <input matInput placeholder="Website" formControlName="website">
     </mat-form-field>
+    <mat-checkbox fxFlexAlign="start" style="margin-bottom: 5px;" formControlName="rememberMe">
+        Remember me
+    </mat-checkbox>
     <button type="submit" mat-raised-button color="primary" fxFlexAlign="start" [disabled]=!form.valid>Publish</button>
 </form>

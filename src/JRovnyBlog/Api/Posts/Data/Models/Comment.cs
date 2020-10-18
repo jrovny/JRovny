@@ -31,6 +31,8 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public string UserUrl { get; set; }
         [Column("is_anonymous")]
         public bool IsAnonymous { get; set; }
+        [Column("remember_me")]
+        public bool RememberMe { get; set; }
         [Column("created_date")]
         public DateTime CreatedDate { get; set; }
         [Column("modified_date")]
