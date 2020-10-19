@@ -40,13 +40,10 @@
                 </div>
                 <mat-divider inset="true" *ngIf="post.tags.length > 0"></mat-divider>
                 <!-- Comments -->
+                <app-comment-initial-add></app-comment-initial-add>
+                <!-- Comment List -->
                 <mat-card>
-                    <mat-card-title>
-                        Leave a comment...
-                    </mat-card-title>
-                    <mat-card-content>
-                        <app-comment-initial-add></app-comment-initial-add>
-                    </mat-card-content>
+                    <app-comment-list [comments]="post.comments"></app-comment-list>
                 </mat-card>
             </div>
         </mat-card-footer>

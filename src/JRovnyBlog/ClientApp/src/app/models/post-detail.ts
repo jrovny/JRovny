@@ -1,3 +1,4 @@
+import { Comment } from './comment';
 import { Tag } from './tag';
 
 export interface PostDetail {
@@ -12,6 +13,6 @@ export interface PostDetail {
     createdDate: Date,
     modifiedDate: Date,
     userId: number,
-    comments: any,
+    comments: Comment[],
     tags: Tag[]
 }

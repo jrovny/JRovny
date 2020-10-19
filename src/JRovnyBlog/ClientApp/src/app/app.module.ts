@@ -20,6 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 import { PostSummaryComponent } from './components/post-summary/post-summary.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostListComponent } from './components/post-list/post-list.component';
@@ -33,9 +34,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects/app.effects';
+import { CommentListComponent } from './components/comment-list/comment-list.component';
+import { CommentDetailComponent } from './components/comment-detail/comment-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent, CommentInitialAddComponent],
+  declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent, CommentInitialAddComponent, CommentListComponent, CommentDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -56,6 +59,7 @@ import { AppEffects } from './store/effects/app.effects';
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatTreeModule,
     FontAwesomeModule,
     StoreModule.forRoot({}, {}),
     StoreModule.forRoot(reducers, { metaReducers }),

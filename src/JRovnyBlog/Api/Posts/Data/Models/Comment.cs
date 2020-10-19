@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JRovnyBlog.Api.Posts.Data.Models
@@ -39,5 +41,11 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public DateTime ModifiedDate { get; set; }
         [Column("deleted")]
         public bool Deleted { get; set; }
+        public Comment Parent { get; set; }
+        public ICollection<Comment> Children { get; set; }
+        public Comment()
+        {
+            Children = new Collection<Comment>();
+        }
     }
 }

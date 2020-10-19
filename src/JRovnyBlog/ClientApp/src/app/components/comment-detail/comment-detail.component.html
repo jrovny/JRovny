@@ -1,0 +1,5 @@
+<div fxLayout="column">
+    <span><strong>{{comment.userName}}</strong>
+        <span style=" font-size: x-small;"> {{comment.createdDate | date: 'longDate'}}</span></span>
+    <mat-form-field><textarea matInput disabled>{{comment.content}}</textarea></mat-form-field>
+</div>

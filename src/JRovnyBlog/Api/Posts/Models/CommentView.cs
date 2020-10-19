@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace JRovnyBlog.Api.Posts.Models
 {
@@ -7,6 +8,7 @@ namespace JRovnyBlog.Api.Posts.Models
         public int CommentId { get; set; }
         public string Content { get; set; }
         public string UserName { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public IEnumerable<CommentView> Children { get; set; }
     }
 }
