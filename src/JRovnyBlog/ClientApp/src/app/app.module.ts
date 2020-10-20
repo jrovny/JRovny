@@ -29,13 +29,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentInitialAddComponent } from './components/comment-initial-add/comment-initial-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects/app.effects';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { CommentDetailComponent } from './components/comment-detail/comment-detail.component';
+import { reducer } from './store/reducers/app.reducer';
 
 @NgModule({
   declarations: [AppComponent, PostSummaryComponent, PostDetailComponent, PostListComponent, PageNotFoundComponent, CommentInitialAddComponent, CommentListComponent, CommentDetailComponent],
@@ -61,8 +61,7 @@ import { CommentDetailComponent } from './components/comment-detail/comment-deta
     MatTooltipModule,
     MatTreeModule,
     FontAwesomeModule,
-    StoreModule.forRoot({}, {}),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot({appState: reducer}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects]),
   ],

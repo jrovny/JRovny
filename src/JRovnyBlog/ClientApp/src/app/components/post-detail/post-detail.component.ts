@@ -1,24 +1,28 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PostDetail } from 'src/app/models/post-detail';
-import { AppService } from 'src/app/services/app.service';
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { select, Store } from '@ngrx/store';
+import { clearPost, loadPost } from 'src/app/store/actions/app.actions';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.scss']
+  styleUrls: ['./post-detail.component.scss'],
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnInit, OnDestroy {
   slug: any;
   post$: Observable<PostDetail>;
   facebookF = faFacebookF;
   faTwitter = faTwitter;
   innerWidth: any;
 
-  constructor(private route: ActivatedRoute, private appService: AppService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<{ appState: { selectedPost: PostDetail } }>
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -26,9 +30,18 @@ export class PostDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.post$ = this.store.pipe(
+      select((state) => state.appState.selectedPost)
+    );
     this.innerWidth = window.innerWidth;
-    this.route.params.subscribe(slug => { this.slug = slug.slug; });
-    this.post$ = this.appService.getBlogPostBySlug(this.slug);
+    this.route.params.subscribe((params) => {
+      this.slug = params.slug;
+      this.store.dispatch(loadPost({ payload: this.slug }));
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(clearPost());
   }
 
   xsScreen() {
@@ -44,6 +57,6 @@ export class PostDetailComponent implements OnInit {
   }
 
   lgScreen() {
-    return this.innerWidth >= 1200
+    return this.innerWidth >= 1200;
   }
 }

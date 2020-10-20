@@ -1,21 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PostSummary } from 'src/app/models/post-summary';
-import { AppService } from 'src/app/services/app.service';
+import { loadPosts } from 'src/app/store/actions/app.actions';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit {
-
+  loading$: Observable<boolean>;
   blogPosts$: Observable<PostSummary[]>;
 
-  constructor(private appService: AppService) { }
+  constructor(
+    private store: Store<{
+      appState: { posts: PostSummary[]; loadingPosts: boolean };
+    }>
+  ) {}
 
   ngOnInit(): void {
-    this.blogPosts$ = this.appService.getBlogPostSummaries();
+    this.loading$ = this.store.pipe(
+      select((state) => state.appState.loadingPosts)
+    );
+    this.blogPosts$ = this.store.pipe(select((state) => state.appState.posts));
+    this.store.dispatch(loadPosts());
   }
-
 }
