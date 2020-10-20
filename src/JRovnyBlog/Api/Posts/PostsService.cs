@@ -18,11 +18,21 @@ namespace JRovnyBlog.Api.Posts
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<Data.Models.Post>> GetAllAsync()
+        public async Task<IEnumerable<Data.Models.PostSummary>> GetAllAsync()
         {
             return await _context.Posts
                 .AsNoTracking()
                 .Where(p => p.Published == true)
+                .Select(p => new PostSummary
+                {
+                    PostId = p.PostId,
+                    Title = p.Title,
+                    Slug = p.Slug,
+                    Image = p.Image,
+                    CommentCount = p.CommentCount,
+                    UpvoteCount = p.UpvoteCount,
+                    CreatedDate = p.CreatedDate
+                })
                 .OrderByDescending(p => p.PostId)
                 .ToListAsync();
         }

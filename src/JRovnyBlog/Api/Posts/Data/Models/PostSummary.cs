@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace JRovnyBlog.Api.Posts.Models
+namespace JRovnyBlog.Api.Posts.Data.Models
 {
     public class PostSummary
     {

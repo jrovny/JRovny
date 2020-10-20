@@ -6,7 +6,7 @@ namespace JRovnyBlog.Api.Posts
 {
     public interface IPostsService
     {
-        Task<IEnumerable<Data.Models.Post>> GetAllAsync();
+        Task<IEnumerable<Data.Models.PostSummary>> GetAllAsync();
         Task<Data.Models.Post> GetByIdAsync(int postId);
         Task<Data.Models.Post> GetBySlugAsync(string slug);
         Task<Data.Models.Post> CreateAsync(Data.Models.Post post);
