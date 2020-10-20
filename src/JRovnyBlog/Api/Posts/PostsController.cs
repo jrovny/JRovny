@@ -2,6 +2,7 @@
 using JRovnyBlog.Api.Posts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,18 +15,23 @@ namespace JRovnyBlog.Api.Posts
     {
         private readonly IMapper _mapper;
         private readonly IPostsService _postsService;
+        private readonly ILogger<PostsController> _logger;
 
         public PostsController(
             IMapper mapper,
-            IPostsService postsService)
+            IPostsService postsService,
+            ILogger<PostsController> logger)
         {
             _mapper = mapper;
             _postsService = postsService;
+            _logger = logger;
         }
 
         [HttpGet()]
         public async Task<IEnumerable<Models.PostSummary>> GetAllAsync()
         {
+            _logger.LogInformation("Getting all blog posts");
+
             return _mapper.Map<IEnumerable<Models.PostSummary>>(
                 await _postsService.GetAllAsync());
         }
@@ -33,6 +39,8 @@ namespace JRovnyBlog.Api.Posts
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
+            _logger.LogInformation("Getting blog post by id");
+
             var post = _mapper.Map<Models.PostView>(
                 await _postsService.GetByIdAsync(id));
 
@@ -45,6 +53,8 @@ namespace JRovnyBlog.Api.Posts
         [HttpGet("slug/{slug}")]
         public async Task<IActionResult> GetBySlugAsync(string slug)
         {
+            _logger.LogInformation("Getting blog post by slug");
+
             var post = _mapper.Map<Models.PostView>(
                await _postsService.GetBySlugAsync(slug));
 
@@ -57,6 +67,8 @@ namespace JRovnyBlog.Api.Posts
         [HttpPost()]
         public async Task<IActionResult> CreateAsync([FromBody] Models.PostSaveRequest post)
         {
+            _logger.LogInformation("Creating blog post {@post}", post);
+
             var data = _mapper.Map<Data.Models.Post>(post);
 
             await _postsService.CreateAsync(data);
@@ -75,6 +87,8 @@ namespace JRovnyBlog.Api.Posts
                     Detail = "The ID in the route does not match the ID in the model."
                 });
 
+            _logger.LogInformation("Updating blog post {@post}", post);
+
             return Ok(await _postsService.UpdateAsync(_mapper.Map<Data.Models.Post>(post)));
         }
 
@@ -89,6 +103,8 @@ namespace JRovnyBlog.Api.Posts
                     Title = "Invalid Request",
                     Detail = "No content found in body of request."
                 });
+
+            _logger.LogInformation("Updating blog post {@post}", patch);
 
             var post = _mapper.Map<Models.PostSaveRequest>(
                 await _postsService.GetByIdAsync(id));
@@ -105,6 +121,8 @@ namespace JRovnyBlog.Api.Posts
         [HttpPost("{id}/upvote")]
         public async Task<IActionResult> UpvoteAsync(int id)
         {
+            _logger.LogInformation("Upvoting blog post");
+
             var post = await _postsService.GetByIdAsync(id);
 
             if (post == null)
@@ -116,6 +134,8 @@ namespace JRovnyBlog.Api.Posts
         [HttpPost("{id}/downvote")]
         public async Task<IActionResult> DownvoteAsync(int id)
         {
+            _logger.LogInformation("Downvoting blog post");
+
             var post = await _postsService.GetByIdAsync(id);
 
             if (post == null)
@@ -129,6 +149,8 @@ namespace JRovnyBlog.Api.Posts
             int id,
             CommentInitialAnonymous initComment)
         {
+            _logger.LogInformation("Creating initial comment for anonymous user");
+
             var proxyIp = Request.Headers["X-Forwarded-For"].FirstOrDefault();
             var comment = _mapper.Map<Data.Models.Comment>(initComment);
             comment.PostId = id;
