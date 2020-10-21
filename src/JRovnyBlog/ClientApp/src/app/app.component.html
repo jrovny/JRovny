@@ -1,7 +1,9 @@
-<mat-toolbar class="mat-elevation-z3 example-header" style="z-index: 2;">
-  <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+<mat-toolbar class="mat-elevation-z3 example-header" style="z-index: 2">
+  <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%">
     <div fxLayout="row">
-      <a mat-button style="font-size: 25px;" color="primary" routerLink="/">{{ title }}</a>
+      <a mat-button style="font-size: 25px" color="primary" routerLink="/">{{
+        title
+      }}</a>
       <div *ngIf="mdScreen()">
         <button mat-button>About</button>
         <button mat-button>Contact</button>
@@ -19,11 +21,11 @@
   </div>
 </mat-toolbar>
 <div fxLayout="row" class="container">
-  <div style="width: 300px;" *ngIf="lgScreen()"></div>
+  <div style="width: 350px" *ngIf="lgScreen()"></div>
   <div fxFlex>
     <router-outlet></router-outlet>
   </div>
-  <div style="width: 300px;" *ngIf="mdScreen()"></div>
+  <div style="width: 350px" *ngIf="mdScreen()"></div>
 </div>
 <mat-menu #menu="matMenu" fxFlex="column">
   <button mat-menu-item>About</button>
