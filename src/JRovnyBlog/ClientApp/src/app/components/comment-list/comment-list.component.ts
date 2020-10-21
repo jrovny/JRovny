@@ -7,23 +7,25 @@ import { Comment } from 'src/app/models/comment';
 @Component({
   selector: 'app-comment-list',
   templateUrl: './comment-list.component.html',
-  styleUrls: ['./comment-list.component.scss']
+  styleUrls: ['./comment-list.component.scss'],
 })
 export class CommentListComponent implements OnInit {
   @Input() comments: Comment[];
-  treeControl = new NestedTreeControl<Comment>(c => c.children);
-  // @ViewChild('tree') tree;
+  treeControl = new NestedTreeControl<Comment>((c) => c.children);
+  @ViewChild('tree') tree;
   dataSource = new MatTreeNestedDataSource<Comment>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.dataSource.data = this.comments;
+    this.treeControl.dataNodes = this.comments;
   }
 
-  // ngAfterViewInit() {
-  //   this.tree.treeControl.expandAll();
-  // }
+  ngAfterViewInit() {
+    this.tree.treeControl.expandAll();
+  }
 
-  hasChild = (_: number, node: Comment) => !!node.children && node.children.length > 0;
+  hasChild = (_: number, node: Comment) =>
+    !!node.children && node.children.length > 0;
 }

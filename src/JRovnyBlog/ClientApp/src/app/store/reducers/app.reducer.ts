@@ -1,3 +1,4 @@
+import { EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import { PostDetail } from 'src/app/models/post-detail';
 import { PostSummary } from 'src/app/models/post-summary';
@@ -5,18 +6,22 @@ import * as Actions from '../actions/app.actions';
 
 export const appFeatureKey = 'app';
 
-export interface State {
+export interface AppState {
   loadingPosts: boolean;
   posts: PostSummary[];
   loadingPost: boolean;
   selectedPost?: PostDetail;
 }
 
-export const initialState: State = {
+export const initialState: AppState = {
   loadingPosts: false,
   posts: [],
   loadingPost: false,
 };
+
+export interface State extends EntityState<PostSummary> {
+  selectedPostId: number | null;
+}
 
 const appReducer = createReducer(
   initialState,
@@ -41,6 +46,6 @@ const appReducer = createReducer(
   }))
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: AppState | undefined, action: Action) {
   return appReducer(state, action);
 }

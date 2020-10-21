@@ -1,5 +1,30 @@
-<div fxLayout="column">
-    <span><strong>{{comment.userName}}</strong>
-        <span style=" font-size: x-small;"> {{comment.createdDate | date: 'longDate'}}</span></span>
-    <mat-form-field><textarea matInput disabled>{{comment.content}}</textarea></mat-form-field>
+<div
+  fxLayout="row"
+  fxLayoutAlign="stretch center"
+  fxLayoutGap="10px"
+  class="comment-area"
+  [style.margin-bottom]="isRootNode() === true ? '10px' : '3px'"
+>
+  <!-- <mat-icon style="width: 36px; height: 36px; font-size: 36px"
+    >account_circle</mat-icon> -->
+  <div fxLayout="column">
+    <span
+      ><span style="font-size: large">{{ comment.userName }}</span>
+      <span>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+      <span style="font-size: smaller">{{
+        comment.createdDate | date: "longDate"
+      }}</span></span
+    >
+    <div style="font-size: small; margin-top: 3px; margin-bottom: 3px">
+      {{ comment.content }}
+    </div>
+    <div fxLayout="row">
+      <button mat-icon-button>
+        <mat-icon inline="true">expand_less</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon inline="true">expand_more</mat-icon>
+      </button>
+    </div>
+  </div>
 </div>
