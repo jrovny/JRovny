@@ -11,6 +11,7 @@ namespace JRovnyBlog.Api.Posts.Models
         [Required]
         public string Email { get; set; }
         [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
         public string Website { get; set; }
         [Required]
