@@ -8,13 +8,8 @@
   <!-- <mat-icon style="width: 36px; height: 36px; font-size: 36px"
     >account_circle</mat-icon> -->
   <div fxLayout="column">
-    <span
-      ><span style="font-size: large">{{ comment.userName }}</span>
-      <span>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
-      <span style="font-size: smaller">{{
-        comment.createdDate | date: "longDate"
-      }}</span></span
-    >
+    <div style="font-size: large">{{ comment.userName }}</div>
+    <div style="font-size: smaller">{{ getElapsedTime() }}</div>
     <div style="font-size: small; margin-top: 3px; margin-bottom: 3px">
       {{ comment.content }}
     </div>

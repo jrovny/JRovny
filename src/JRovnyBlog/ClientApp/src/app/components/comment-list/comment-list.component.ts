@@ -20,7 +20,11 @@ export class CommentListComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.data = this.comments;
     this.treeControl.dataNodes = this.comments;
+
+    this.loadComments();
   }
+
+  loadComments() {}
 
   ngAfterViewInit() {
     this.tree.treeControl.expandAll();
@@ -28,4 +32,6 @@ export class CommentListComponent implements OnInit {
 
   hasChild = (_: number, node: Comment) =>
     !!node.children && node.children.length > 0;
+
+  hasNoContent = (_: number, _nodeData: Comment) => _nodeData.commentId === 0;
 }

@@ -16,6 +16,19 @@
       ></app-comment-detail>
     </li>
   </mat-tree-node>
+
+  <mat-tree-node
+    *matTreeNodeDef="let node; when: hasNoContent"
+    matTreeNodePadding
+  >
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <mat-label>Leave comment...</mat-label>
+      <input matInput #itemValue />
+    </mat-form-field>
+    <button mat-button>Save</button>
+  </mat-tree-node>
+
   <!-- This is the tree node template for expandable nodes -->
   <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
     <li>
