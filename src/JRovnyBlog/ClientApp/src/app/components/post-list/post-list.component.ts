@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PostSummary } from 'src/app/models/post-summary';
 import { loadPosts } from 'src/app/store/actions/app.actions';
+import { selectAllPosts } from 'src/app/store/reducers/index';
 
 @Component({
   selector: 'app-post-list',
@@ -12,6 +13,7 @@ import { loadPosts } from 'src/app/store/actions/app.actions';
 export class PostListComponent implements OnInit {
   loading$: Observable<boolean>;
   blogPosts$: Observable<PostSummary[]>;
+  blogPosts2$: any;
 
   constructor(
     private store: Store<{
@@ -23,7 +25,7 @@ export class PostListComponent implements OnInit {
     this.loading$ = this.store.pipe(
       select((state) => state.appState.loadingPosts)
     );
-    this.blogPosts$ = this.store.pipe(select((state) => state.appState.posts));
+    this.blogPosts$ = this.store.pipe(select(selectAllPosts));
     this.store.dispatch(loadPosts());
   }
 }
