@@ -51,24 +51,20 @@ export class CommentListComponent implements OnInit, OnDestroy {
 
   loadComments() {
     this.comments.forEach((comment) => {
-      this.build(comment);
+      var localComment: Comment = {
+        commentId: comment.commentId,
+        content: comment.content,
+        createdDate: comment.createdDate,
+        children: [],
+        userName: comment.userName,
+        parentCommentId: comment.parentCommentId,
+      };
+      if (localComment.parentCommentId === 0) {
+        this.commentTree.push(localComment);
+      } else {
+        this.add(this.commentTree, localComment);
+      }
     });
-  }
-
-  private build(comment: Comment) {
-    var localComment: Comment = {
-      commentId: comment.commentId,
-      content: comment.content,
-      createdDate: comment.createdDate,
-      children: [],
-      userName: comment.userName,
-      parentCommentId: comment.parentCommentId,
-    };
-    if (localComment.parentCommentId === 0) {
-      this.commentTree.push(localComment);
-    } else {
-      this.add(this.commentTree, localComment);
-    }
   }
 
   add(comments: Comment[], comment: Comment) {
