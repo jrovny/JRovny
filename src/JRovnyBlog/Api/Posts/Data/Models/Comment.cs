@@ -42,10 +42,5 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         [Column("deleted")]
         public bool Deleted { get; set; }
         public Comment Parent { get; set; }
-        public ICollection<Comment> Children { get; set; }
-        public Comment()
-        {
-            Children = new Collection<Comment>();
-        }
     }
 }

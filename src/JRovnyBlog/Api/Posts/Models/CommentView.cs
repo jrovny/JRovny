@@ -10,6 +10,5 @@ namespace JRovnyBlog.Api.Posts.Models
         public string Content { get; set; }
         public string UserName { get; set; }
         public DateTime CreatedDate { get; set; }
-        public IEnumerable<CommentView> Children { get; set; }
     }
 }
