@@ -1,30 +1,44 @@
 import { NestedTreeControl } from '@angular/cdk/tree';
-import { ViewChild } from '@angular/core';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
+import { PostDetail } from 'src/app/models/post-detail';
 
 @Component({
   selector: 'app-comment-list',
   templateUrl: './comment-list.component.html',
   styleUrls: ['./comment-list.component.scss'],
 })
-export class CommentListComponent implements OnInit {
-  @Input() comments: Comment[];
+export class CommentListComponent implements OnInit, OnDestroy {
   treeControl = new NestedTreeControl<Comment>((c) => c.children);
   @ViewChild('tree') tree;
   dataSource = new MatTreeNestedDataSource<Comment>();
+  comments: Comment[] = [];
+  subscription$: Subscription;
+  commentTree: Comment[] = [];
 
-  constructor() {}
+  constructor(
+    private store: Store<{ appState: { selectedPost: PostDetail } }>
+  ) {}
 
   ngOnInit(): void {
-    this.dataSource.data = this.comments;
-    this.treeControl.dataNodes = this.comments;
-
+    this.subscription$ = this.store
+      .pipe(select((state) => state.appState.selectedPost.comments))
+      .subscribe((comments) => {
+        this.comments = comments;
+      });
     this.loadComments();
+
+    this.dataSource.data = this.commentTree;
+    this.treeControl.dataNodes = this.commentTree;
   }
 
-  loadComments() {}
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
+  }
 
   ngAfterViewInit() {
     this.tree.treeControl.expandAll();
@@ -34,4 +48,34 @@ export class CommentListComponent implements OnInit {
     !!node.children && node.children.length > 0;
 
   hasNoContent = (_: number, _nodeData: Comment) => _nodeData.commentId === 0;
+
+  loadComments() {
+    this.comments.forEach((comment) => {
+      this.build(comment);
+    });
+  }
+
+  private build(comment: Comment) {
+    var localComment: Comment = {
+      commentId: comment.commentId,
+      content: comment.content,
+      createdDate: comment.createdDate,
+      children: [],
+      userName: comment.userName,
+      parentCommentId: comment.parentCommentId,
+    };
+    if (localComment.parentCommentId === 0) {
+      this.commentTree.push(localComment);
+    } else {
+      this.add(this.commentTree, localComment);
+    }
+  }
+
+  add(comments: Comment[], comment: Comment) {
+    comments.forEach((c) => {
+      if (c.commentId === comment.parentCommentId) {
+        c.children.push(comment);
+      } else this.add(c.children, comment);
+    });
+  }
 }
