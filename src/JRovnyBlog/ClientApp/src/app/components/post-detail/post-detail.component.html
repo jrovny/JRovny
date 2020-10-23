@@ -1,56 +1,66 @@
 <div *ngIf="post$ | async as post; else loading" fxFlex>
-    <mat-card style="margin: 10px 10px;">
-        <img mat-card-image [src]="post.image" alt="Blog post image">
-        <div fxLayout="row">
-            <div fxFlex>
-                <mat-card-title>
-                    <div fxLayout="row">
-                        {{post.title}}
-                    </div>
-                </mat-card-title>
-                <mat-card-subtitle>
-                    {{post.createdDate | date: "longDate"}}
-                </mat-card-subtitle>
-            </div>
-            <div *ngIf="xsScreen(); else smScreen">
-                <button mat-icon-button>
-                    <mat-icon>share</mat-icon>
-                </button>
-            </div>
-            <ng-template #smScreen>
-                <button mat-icon-button matTooltip="Share with Facebook">
-                    <fa-icon [icon]="facebookF" size="lg" style="color: rgb(66,103,178);"></fa-icon>
-                </button>
-                <button mat-icon-button matTooltip="Share with Twitter">
-                    <fa-icon [icon]="faTwitter" size="lg" style="color: rgb(29,161,242);"></fa-icon>
-                </button>
-            </ng-template>
+  <mat-card style="margin: 10px 10px">
+    <img mat-card-image [src]="post.image" alt="Blog post image" />
+    <div fxLayout="row">
+      <div fxFlex>
+        <mat-card-title>
+          <div fxLayout="row">
+            {{ post.title }}
+          </div>
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ post.createdDate | date: "longDate" }}
+        </mat-card-subtitle>
+      </div>
+      <div *ngIf="xsScreen(); else smScreen">
+        <button mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+      </div>
+      <ng-template #smScreen>
+        <button mat-icon-button matTooltip="Share with Facebook">
+          <fa-icon
+            [icon]="facebookF"
+            size="lg"
+            style="color: rgb(66, 103, 178)"
+          ></fa-icon>
+        </button>
+        <button mat-icon-button matTooltip="Share with Twitter">
+          <fa-icon
+            [icon]="faTwitter"
+            size="lg"
+            style="color: rgb(29, 161, 242)"
+          ></fa-icon>
+        </button>
+      </ng-template>
+    </div>
+    <mat-card-content>
+      <div [innerHTML]="post.content"></div>
+    </mat-card-content>
+    <mat-card-footer
+      style="padding-left: 15px; padding-right: 15px; padding-bottom: 5px"
+    >
+      <div fxLayout="column" fxLayoutGap="10px">
+        <mat-divider inset="true" *ngIf="post.tags.length > 0"></mat-divider>
+        <!-- Tags -->
+        <div *ngIf="post.tags.length > 0">
+          <mat-chip-list aria-label="Tags">
+            <mat-chip *ngFor="let tag of post.tags">{{ tag.name }}</mat-chip>
+          </mat-chip-list>
         </div>
-        <mat-card-content>
-            <div [innerHTML]="post.content"></div>
-        </mat-card-content>
-        <mat-card-footer style="padding-left: 15px; padding-right: 15px; padding-bottom: 5px;">
-            <div fxLayout="column" fxLayoutGap="10px">
-                <mat-divider inset="true" *ngIf="post.tags.length > 0"></mat-divider>
-                <!-- Tags -->
-                <div *ngIf="post.tags.length > 0">
-                    <mat-chip-list aria-label="Tags">
-                        <mat-chip *ngFor="let tag of post.tags">{{tag.name}}</mat-chip>
-                    </mat-chip-list>
-                </div>
-                <mat-divider inset="true" *ngIf="post.tags.length > 0"></mat-divider>
-                <!-- Comments -->
-                <app-comment-initial-add></app-comment-initial-add>
-                <!-- Comment List -->
-                <mat-card>
-                    <app-comment-list [comments]="post.comments"></app-comment-list>
-                </mat-card>
-            </div>
-        </mat-card-footer>
-    </mat-card>
+        <mat-divider inset="true" *ngIf="post.tags.length > 0"></mat-divider>
+        <!-- Comments -->
+        <app-comment-initial-add></app-comment-initial-add>
+        <!-- Comment List -->
+        <mat-card>
+          <app-comment-list></app-comment-list>
+        </mat-card>
+      </div>
+    </mat-card-footer>
+  </mat-card>
 </div>
 <ng-template #loading>
-    <div class="loading-indicator">
-        <mat-spinner diameter="50"></mat-spinner>
-    </div>
+  <div class="loading-indicator">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
 </ng-template>
