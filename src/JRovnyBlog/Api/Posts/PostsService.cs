@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using JRovnyBlog.Api.Posts.Data.Models;
+﻿using JRovnyBlog.Api.Posts.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +9,10 @@ namespace JRovnyBlog.Api.Posts
     public class PostsService : IPostsService
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper mapper;
 
-        public PostsService(ApplicationDbContext context, IMapper mapper)
+        public PostsService(ApplicationDbContext context)
         {
             _context = context;
-            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<Data.Models.PostSummary>> GetAllAsync()
@@ -51,7 +48,6 @@ namespace JRovnyBlog.Api.Posts
                 .Include(p => p.PostTags)
                     .ThenInclude(pt => pt.Tag)
                 .Include(p => p.Comments)
-                    .ThenInclude(c => c.Children)
                 .AsNoTracking()
                 .Where(p => p.Slug == slug)
                 .FirstOrDefaultAsync();
