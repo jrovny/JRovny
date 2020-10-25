@@ -1,6 +1,6 @@
 # JRovny Blog
 
-Ths is the main repository for [JRovny Blog](https://www.jrovny.com). JRovny Blog is a software development blog primarily targeted at intermediate to advanced members of the software and web development community.
+Ths is the main repository for [JRovny Blog](https://www.jrovny.com). JRovny Blog is a software development blog primarily targeted towards intermediate to advanced members of the software and web development community.
 
 ## Project
 
