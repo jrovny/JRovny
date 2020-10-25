@@ -60,6 +60,7 @@ namespace JRovnyBlog
             {
                 NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, false, false);
                 app.UseDeveloperExceptionPage();
+                app.UseForwardedHeaders();
             }
             else
             {
@@ -67,6 +68,7 @@ namespace JRovnyBlog
                 {
                     HandleGlobalException(env, appError, logger);
                 });
+                app.UseForwardedHeaders();
             }
 
             app.UseStaticFiles();
