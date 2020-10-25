@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using JRovnyBlog.Api.Posts.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -158,11 +160,12 @@ namespace JRovnyBlog.Api.Posts
                 ? proxyIp.ToString()
                 : Request.HttpContext.Connection.RemoteIpAddress.ToString();
             comment.IsAnonymous = true;
+            comment.UserAgent = Request.Headers[HeaderNames.UserAgent];
 
             await _postsService.CreateInitialCommentAsync(comment);
             initComment.CommentId = comment.CommentId;
 
-            return Ok(initComment);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = initComment.CommentId }, initComment);
         }
     }
 }

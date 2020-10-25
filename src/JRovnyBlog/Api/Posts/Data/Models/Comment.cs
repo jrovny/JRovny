@@ -31,6 +31,8 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public string UserEmail { get; set; }
         [Column("user_url")]
         public string UserUrl { get; set; }
+        [Column("user_agent")]
+        public string UserAgent { get; set; }
         [Column("is_anonymous")]
         public bool IsAnonymous { get; set; }
         [Column("remember_me")]
