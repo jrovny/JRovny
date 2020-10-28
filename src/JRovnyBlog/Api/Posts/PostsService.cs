@@ -9,6 +9,11 @@ namespace JRovnyBlog.Api.Posts
     public class PostsService : IPostsService
     {
         private readonly ApplicationDbContext _context;
+        private enum Vote
+        {
+            Upvote = 1,
+            Downvote = 2
+        }
 
         public PostsService(ApplicationDbContext context)
         {
@@ -69,29 +74,14 @@ namespace JRovnyBlog.Api.Posts
             return post;
         }
 
-        public async Task<PostUpvoteResponse> UpvoteAsync(int id)
+        public async Task<PostVoteResponse> UpvoteAsync(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
-
-            post.UpvoteCount += 1;
-
-            await _context.SaveChangesAsync();
-
-            return new PostUpvoteResponse { UpvoteCount = post.UpvoteCount };
+            return await VoteAsync(id, Vote.Upvote);
         }
 
-        public async Task<PostUpvoteResponse> DownvoteAsync(int id)
+        public async Task<PostVoteResponse> DownvoteAsync(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
-
-            post.UpvoteCount -= 1;
-
-            if (post.UpvoteCount < 0)
-                post.UpvoteCount = 0;
-
-            await _context.SaveChangesAsync();
-
-            return new PostUpvoteResponse { UpvoteCount = post.UpvoteCount };
+            return await VoteAsync(id, Vote.Downvote);
         }
 
         public async Task<Comment> CreateInitialCommentAsync(Comment comment)
@@ -100,6 +90,24 @@ namespace JRovnyBlog.Api.Posts
             await _context.SaveChangesAsync();
 
             return comment;
+        }
+
+        private async Task<PostVoteResponse> VoteAsync(int id, Vote vote)
+        {
+            var post = await _context.Posts.FindAsync(id);
+
+            if (vote == Vote.Upvote)
+                post.UpvoteCount += 1;
+            else
+                post.DownvoteCount += 1;
+
+            await _context.SaveChangesAsync();
+
+            return new PostVoteResponse
+            {
+                UpvoteCount = post.UpvoteCount,
+                DownvoteCount = post.DownvoteCount
+            };
         }
     }
 }

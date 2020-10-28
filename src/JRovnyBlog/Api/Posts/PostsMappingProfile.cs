@@ -19,7 +19,7 @@ namespace JRovnyBlog.Api.Posts
                             Name = t.Tag.Name
                         })));
             CreateMap<Data.Models.Post, Models.PostSummary>();
-            CreateMap<Data.Models.PostUpvoteResponse, Models.PostUpvoteResponse>();
+            CreateMap<Data.Models.PostVoteResponse, Models.PostVoteResponse>();
             CreateMap<Data.Models.Comment, Models.CommentView>();
             CreateMap<Tags.Data.Models.Tag, Tags.Models.Tag>();
             CreateMap<Models.CommentInitialAnonymous, Data.Models.Comment>()

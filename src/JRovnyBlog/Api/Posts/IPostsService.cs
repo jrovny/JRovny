@@ -11,8 +11,8 @@ namespace JRovnyBlog.Api.Posts
         Task<Data.Models.Post> GetBySlugAsync(string slug);
         Task<Data.Models.Post> CreateAsync(Data.Models.Post post);
         Task<Post> UpdateAsync(Post post);
-        Task<PostUpvoteResponse> UpvoteAsync(int id);
-        Task<PostUpvoteResponse> DownvoteAsync(int id);
+        Task<PostVoteResponse> UpvoteAsync(int id);
+        Task<PostVoteResponse> DownvoteAsync(int id);
         Task<Comment> CreateInitialCommentAsync(Comment comment);
     }
 }

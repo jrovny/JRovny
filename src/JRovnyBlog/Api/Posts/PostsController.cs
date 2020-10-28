@@ -130,7 +130,7 @@ namespace JRovnyBlog.Api.Posts
             if (post == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<Models.PostUpvoteResponse>(await _postsService.UpvoteAsync(id)));
+            return Ok(_mapper.Map<Models.PostVoteResponse>(await _postsService.UpvoteAsync(id)));
         }
 
         [HttpPost("{id}/downvote")]
@@ -143,7 +143,7 @@ namespace JRovnyBlog.Api.Posts
             if (post == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<Models.PostUpvoteResponse>(await _postsService.DownvoteAsync(id)));
+            return Ok(_mapper.Map<Models.PostVoteResponse>(await _postsService.DownvoteAsync(id)));
         }
 
         [HttpPost("{id}/comment-initial-anon")]
