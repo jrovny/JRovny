@@ -58,6 +58,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
         children: [],
         userName: comment.userName,
         parentCommentId: comment.parentCommentId,
+        emailHash: comment.emailHash,
       };
       if (localComment.parentCommentId === 0) {
         this.commentTree.push(localComment);

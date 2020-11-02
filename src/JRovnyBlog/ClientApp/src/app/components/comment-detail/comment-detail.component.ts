@@ -32,17 +32,17 @@ export class CommentDetailComponent implements OnInit {
     }
 
     // Within the hour
-    if (minutes <= 60) {
+    if (minutes < 60) {
       return `${Math.round(minutes)}m ago`;
     }
 
     // Within the day
-    if (hours <= 24) {
+    if (hours < 24) {
       return `${Math.round(hours)}h ago`;
     }
 
     // Within 3 weeks
-    if (days <= 21) {
+    if (days < 21) {
       return `${Math.round(days)}d ago`;
     }
 

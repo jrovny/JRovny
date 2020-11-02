@@ -161,6 +161,7 @@ namespace JRovnyBlog.Api.Posts
                 : Request.HttpContext.Connection.RemoteIpAddress.ToString();
             comment.IsAnonymous = true;
             comment.UserAgent = Request.Headers[HeaderNames.UserAgent];
+            comment.EmailHash = initComment.Email.MD5Hash().ToLower();
 
             await _postsService.CreateInitialCommentAsync(comment);
             initComment.CommentId = comment.CommentId;

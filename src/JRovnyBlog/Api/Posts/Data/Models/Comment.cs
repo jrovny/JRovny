@@ -29,6 +29,8 @@ namespace JRovnyBlog.Api.Posts.Data.Models
         public string UserIp { get; set; }
         [Column("user_email")]
         public string UserEmail { get; set; }
+        [Column("email_hash")]
+        public string EmailHash { get; set; }
         [Column("user_url")]
         public string UserUrl { get; set; }
         [Column("user_agent")]
