@@ -52,7 +52,6 @@ namespace JRovnyBlog.Api.Posts
                 .Include(p => p.Comments)
                 .Include(p => p.PostTags)
                     .ThenInclude(pt => pt.Tag)
-                .Include(p => p.Comments)
                 .AsNoTracking()
                 .Where(p => p.Slug == slug)
                 .FirstOrDefaultAsync();
