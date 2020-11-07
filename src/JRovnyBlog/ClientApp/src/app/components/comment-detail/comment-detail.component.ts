@@ -46,6 +46,6 @@ export class CommentDetailComponent implements OnInit {
       return `${Math.round(days)}d ago`;
     }
 
-    return `${Math.round(days) / 7}w ago`;
+    return `${Math.round(days / 7)}w ago`;
   }
 }
