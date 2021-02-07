@@ -108,5 +108,22 @@ namespace JRovnyBlog.Api.Posts
                 DownvoteCount = post.DownvoteCount
             };
         }
+
+        public async Task<IEnumerable<Data.Models.PostSummary>> GetAllByTagAsync(int tagId)
+        {
+            return await _context.PostTags
+                .Where(t => t.TagId == tagId)
+                .Select(t => new PostSummary
+                {
+                    PostId = t.Post.PostId,
+                    Title = t.Post.Title,
+                    Slug = t.Post.Slug,
+                    Image = t.Post.Image,
+                    CommentCount = t.Post.CommentCount,
+                    UpvoteCount = t.Post.UpvoteCount,
+                    CreatedDate = t.Post.CreatedDate
+                })
+                .ToListAsync();
+        }
     }
 }

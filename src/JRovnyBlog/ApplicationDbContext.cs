@@ -18,7 +18,7 @@ namespace JRovnyBlog
         public DbSet<Image> Images { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        //public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<PostTag> PostTags { get; set; }
 
         public ApplicationDbContext(IConnectionService connectionService)
         {
@@ -33,6 +33,7 @@ namespace JRovnyBlog
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Post>().HasMany(p => p.Comments).WithOne(c => c.Post);
+            builder.Entity<Post>().HasMany(p => p.PostTags).WithOne(pt => pt.Post);
             builder.Entity<Comment>().HasQueryFilter(p => !p.Deleted);
             builder.Entity<Tag>().HasQueryFilter(t => !t.Deleted);
             builder.Entity<PostTag>().HasQueryFilter(t => !t.Deleted);

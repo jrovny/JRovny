@@ -14,5 +14,6 @@ namespace JRovnyBlog.Api.Posts
         Task<PostVoteResponse> UpvoteAsync(int id);
         Task<PostVoteResponse> DownvoteAsync(int id);
         Task<Comment> CreateInitialCommentAsync(Comment comment);
+        Task<IEnumerable<Data.Models.PostSummary>> GetAllByTagAsync(int tagId);
     }
 }
