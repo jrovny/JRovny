@@ -36,16 +36,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       .subscribe((result) => (this.xsScreen = result.matches));
   }
 
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.innerWidth = event.target.innerWidth;
-  // }
-
   ngOnInit(): void {
     this.post$ = this.store.pipe(
       select((state) => state.appState.selectedPost)
     );
-    // this.innerWidth = window.innerWidth;
     this.route.params.subscribe((params) => {
       this.slug = params.slug;
       this.link = `${environment.baseUrl}/api/posts/${this.slug}`;
@@ -69,20 +63,4 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.store.dispatch(clearPost());
   }
-
-  // xsScreen() {
-  //   return this.innerWidth < 768;
-  // }
-
-  // smScreen() {
-  //   return this.innerWidth >= 768;
-  // }
-
-  // mdScreen() {
-  //   return this.innerWidth >= 992;
-  // }
-
-  // lgScreen() {
-  //   return this.innerWidth >= 1200;
-  // }
 }
