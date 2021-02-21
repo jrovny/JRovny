@@ -20,7 +20,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   post$: Observable<PostDetail>;
   facebookF = faFacebookF;
   faTwitter = faTwitter;
-  // innerWidth: any;
   link: string;
   xsScreen = false;
 
