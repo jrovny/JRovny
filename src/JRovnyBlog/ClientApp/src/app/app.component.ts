@@ -10,7 +10,6 @@ export class AppComponent implements OnInit {
   title = 'JRovny';
   rightSidenavOpened = true;
   leftSidenavOpened = true;
-  // innerWidth: number;
   xsScreen = false;
   smScreen = false;
   mdScreen = false;
@@ -31,25 +30,5 @@ export class AppComponent implements OnInit {
       .subscribe((result) => (this.lgScreen = result.matches));
   }
 
-  ngOnInit() {
-    // this.innerWidth = window.innerWidth;
-  }
-
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.innerWidth = event.target.innerWidth;
-  // }
-
-  // xsScreen() {
-  //   return this.innerWidth < 768;
-  // }
-  // smScreen() {
-  //   return this.innerWidth >= 768;
-  // }
-  // mdScreen() {
-  //   return this.innerWidth >= 992;
-  // }
-  // lgScreen() {
-  //   return this.innerWidth >= 1200;
-  // }
+  ngOnInit() {}
 }
