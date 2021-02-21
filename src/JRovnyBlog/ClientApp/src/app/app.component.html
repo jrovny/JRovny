@@ -4,16 +4,16 @@
       <a mat-button style="font-size: 25px" color="primary" routerLink="/">{{
         title
       }}</a>
-      <div *ngIf="mdScreen()">
+      <div *ngIf="mdScreen">
         <button mat-button>About</button>
         <button mat-button>Contact</button>
       </div>
     </div>
-    <div fxLayoutGap="10px" *ngIf="smScreen()">
+    <div fxLayoutGap="10px" *ngIf="smScreen">
       <button mat-button>Sign In</button>
       <button mat-raised-button color="primary">Sign Up</button>
     </div>
-    <div *ngIf="xsScreen()">
+    <div *ngIf="xsScreen">
       <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
       </button>
@@ -21,11 +21,11 @@
   </div>
 </mat-toolbar>
 <div fxLayout="row" class="container">
-  <div style="width: 350px" *ngIf="lgScreen()"></div>
+  <div style="width: 350px" *ngIf="lgScreen"></div>
   <div fxFlex>
     <router-outlet></router-outlet>
   </div>
-  <div style="width: 350px" *ngIf="mdScreen()"></div>
+  <div style="width: 350px" *ngIf="mdScreen || lgScreen"></div>
 </div>
 <mat-menu #menu="matMenu" fxFlex="column">
   <button mat-menu-item>About</button>
