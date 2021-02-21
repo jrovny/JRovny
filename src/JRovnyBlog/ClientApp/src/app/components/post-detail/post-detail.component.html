@@ -12,7 +12,7 @@
           {{ post.createdDate | date: "longDate" }}
         </mat-card-subtitle>
       </div>
-      <div *ngIf="xsScreen(); else smScreen">
+      <div *ngIf="xsScreen; else smScreen">
         <button mat-icon-button>
           <mat-icon>share</mat-icon>
         </button>

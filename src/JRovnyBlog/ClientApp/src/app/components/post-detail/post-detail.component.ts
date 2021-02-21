@@ -8,6 +8,7 @@ import { select, Store } from '@ngrx/store';
 import { clearPost, loadPost } from 'src/app/store/actions/app.actions';
 import { environment } from 'src/environments/environment';
 import { Meta, Title } from '@angular/platform-browser';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-post-detail',
@@ -19,26 +20,32 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   post$: Observable<PostDetail>;
   facebookF = faFacebookF;
   faTwitter = faTwitter;
-  innerWidth: any;
+  // innerWidth: any;
   link: string;
+  xsScreen = false;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<{ appState: { selectedPost: PostDetail } }>,
     private titleService: Title,
-    private metaService: Meta
-  ) {}
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = event.target.innerWidth;
+    private metaService: Meta,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall])
+      .subscribe((result) => (this.xsScreen = result.matches));
   }
+
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.innerWidth = event.target.innerWidth;
+  // }
 
   ngOnInit(): void {
     this.post$ = this.store.pipe(
       select((state) => state.appState.selectedPost)
     );
-    this.innerWidth = window.innerWidth;
+    // this.innerWidth = window.innerWidth;
     this.route.params.subscribe((params) => {
       this.slug = params.slug;
       this.link = `${environment.baseUrl}/api/posts/${this.slug}`;
@@ -63,19 +70,19 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     this.store.dispatch(clearPost());
   }
 
-  xsScreen() {
-    return this.innerWidth < 768;
-  }
+  // xsScreen() {
+  //   return this.innerWidth < 768;
+  // }
 
-  smScreen() {
-    return this.innerWidth >= 768;
-  }
+  // smScreen() {
+  //   return this.innerWidth >= 768;
+  // }
 
-  mdScreen() {
-    return this.innerWidth >= 992;
-  }
+  // mdScreen() {
+  //   return this.innerWidth >= 992;
+  // }
 
-  lgScreen() {
-    return this.innerWidth >= 1200;
-  }
+  // lgScreen() {
+  //   return this.innerWidth >= 1200;
+  // }
 }
