@@ -38,7 +38,7 @@
     "@ngrx/entity": "^10.0.1",
     "@ngrx/store": "^10.0.1",
     "@ngrx/store-devtools": "^10.0.1",
-    "@nguniversal/express-engine": "^9.0.2",
+    "@nguniversal/express-engine": "^10.1.0",
     "express": "^4.15.2",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
