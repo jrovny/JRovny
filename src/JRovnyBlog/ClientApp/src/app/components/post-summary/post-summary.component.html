@@ -1,25 +1,35 @@
-<mat-card style="margin: 10px 10px; cursor: pointer;" (click)="openBlogPost()">
+<mat-card style="margin: 10px 10px; cursor: pointer" (click)="openBlogPost()">
   <mat-card-title-group>
     <!-- <mat-card-title><a [routerLink]="['/posts/', post.slug]">{{
         post.title
       }}</a></mat-card-title> -->
-    <mat-card-title>{{post.title}}</mat-card-title>
-    <mat-card-subtitle>{{
-      post.createdDate | date: "longDate"
-    }} &bull; Jordan</mat-card-subtitle>
-    <img [ngClass]="(innerWidth >= 768) ? 'mat-card-md-image' : 'mat-card-sm-image'" [src]="post.image"
-      alt="Blog post image">
+    <mat-card-title>{{ post.title }}</mat-card-title>
+    <mat-card-subtitle
+      >{{ post.createdDate | date: "longDate" }} &bull;
+      Jordan</mat-card-subtitle
+    >
+    <img
+      [ngClass]="xsScreen ? 'mat-card-md-image' : 'mat-card-sm-image'"
+      [src]="post.image"
+      alt="Blog post image"
+    />
   </mat-card-title-group>
-  <mat-card-footer style="padding-left: 15px; padding-bottom: 5px;"
-    *ngIf="post.upvoteCount > 0 || post.commentCount > 0">
+  <mat-card-footer
+    style="padding-left: 15px; padding-bottom: 5px"
+    *ngIf="post.upvoteCount > 0 || post.commentCount > 0"
+  >
     <div fxLayout="row" fxLayoutGap="10px">
       <div fxLayout="row" *ngIf="post.upvoteCount > 0">
-        <mat-icon color="primary" style="margin-right: 3px;">thumb_up_alt</mat-icon>
-        <div class="mat-body">{{post.upvoteCount}} likes</div>
+        <mat-icon color="primary" style="margin-right: 3px"
+          >thumb_up_alt</mat-icon
+        >
+        <div class="mat-body">{{ post.upvoteCount }} likes</div>
       </div>
       <div fxLayout="row" *ngIf="post.commentCount > 0">
-        <mat-icon color="primary" style="margin-right: 3px;">chat_bubble</mat-icon>
-        <div class="mat-body">{{post.commentCount}} comments</div>
+        <mat-icon color="primary" style="margin-right: 3px"
+          >chat_bubble</mat-icon
+        >
+        <div class="mat-body">{{ post.commentCount }} comments</div>
       </div>
     </div>
   </mat-card-footer>
