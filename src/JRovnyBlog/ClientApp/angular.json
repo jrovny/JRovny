@@ -167,7 +167,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/jrovny-blog/server",
+            "outputPath": "dist-server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
@@ -203,9 +203,7 @@
           "options": {
             "browserTarget": "jrovny-blog:build:production",
             "serverTarget": "jrovny-blog:server:production",
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {}
